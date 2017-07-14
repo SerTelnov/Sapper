@@ -21,10 +21,13 @@ public class GamePanel extends JPanel implements IGameListener {
     private Game game;
     private boolean isWin;
     private boolean gameFinished;
+    private Images images = new Images();
+    private JButton restartButton;
+
     public GamePanel(final int row, final int column, final int counterBomb) {
         createGame(row, column, counterBomb);
 
-        JButton restartButton = new JButton("Restart");
+        restartButton = new JButton(images.getSmile());
         ActionListener rectDrawListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,39 +64,35 @@ public class GamePanel extends JPanel implements IGameListener {
 
     private void restartGame() {
         createGame(game.getRow(), game.getColumn(), game.getCounterBomb());
+        restartButton.setIcon(images.getSmile());
         repaint();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.DARK_GRAY);
-        fieldPainter = new FieldPainter(game, isWin, gameFinished);
-        g.fillRect(0, 0, this.getHeight(), this.getWidth());
-        if (!gameFinished) {
-            g.setColor(Color.BLACK);
-            g.drawString("This is game Sapper!", 10, 20);
-        } else if (isWin) {
-            g.setColor(Color.GREEN);
-            g.drawString("You WIN!!! :)", 10, 20);
+        setBackground(Color.GRAY);
+        Font font = new Font("Calibri", Font.BOLD, 20);
+//        Font font = g.getFont().deriveFont( 20.0f );
+        g.setFont( font );
+        fieldPainter = new FieldPainter(game, isWin);
+        if (gameFinished) {
+            fieldPainter.drawFinishGame(g);
         } else {
-            g.setColor(Color.RED);
-            g.drawString("You LOST!!! :(", 10, 20);
-        }
-        if (!gameFinished) {
-            fieldPainter.drawField(g, game.getField());
-        } else {
-            fieldPainter.drawFinishedGame(g, game.getField(), isWin);
+            fieldPainter.drawField(g);
         }
         scorePainter.drawScore(g);
     }
 
     @Override
     public void cellChange(Cell c) {
-        repaint(0, 0, this.getWidth(), this.getHeight());
+        repaint();
     }
 
     @Override
     public void gameOver(boolean isWin) {
+        if (!isWin) {
+            restartButton.setIcon(images.getSad());
+        }
         this.isWin = isWin;
         this.gameFinished = true;
         repaint(0, 0, this.getWidth(), this.getHeight());

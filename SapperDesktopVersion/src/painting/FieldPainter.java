@@ -10,38 +10,32 @@ import java.awt.*;
  */
 
 public class FieldPainter {
-    final int START_X = 50;
-    final int START_Y = 50;
+    final int START_X = 60;
+    final int START_Y = 90;
+    private final int ARC_SIZE = 5;
     final Images images = new Images();
     private Field field;
-    private boolean isWin, gameFinished;
+    private boolean isWin;
 
-    public FieldPainter(final Field field) {
-        this.field = field;
-        isWin = false;
-        gameFinished = false;
-    }
-
-    public FieldPainter(final Field field, final boolean isWin, final boolean gameFinished) {
+    public FieldPainter(final Field field, final boolean isWin) {
         this.field = field;
         this.isWin = isWin;
-        this.gameFinished = gameFinished;
     }
 
-    public void drawField(Graphics g, Cell[][] field) {
-        for (int i = 0; i != field.length; i++) {
-            for (int j = 0; j != field[i].length; j++) {
-                drawCell(g, getX(i), getY(j), field[i][j]);
+    public void drawField(Graphics g) {
+        for (int i = 0; i != field.getRow(); i++) {
+            for (int j = 0; j != field.getColumn(); j++) {
+                drawCell(g, getX(i), getY(j), field.getCell(i, j));
             }
         }
     }
 
-    public void drawFinishedGame(Graphics g, Cell[][] field, boolean isWin) {
-        for (int i = 0; i != field.length; i++) {
-            for (int j = 0; j != field[i].length; j++) {
+    public void drawFinishGame(Graphics g) {
+        for (int i = 0; i != field.getRow(); i++) {
+            for (int j = 0; j != field.getColumn(); j++) {
                 int x = getX(i);
                 int y = getY(j);
-                Cell cell = field[i][j];
+                Cell cell = field.getCell(i, j);
                 if (cell.isBomb()) {
                     drawBomb(g, x, y, cell.isTagged);
                 } else if (isWin) {
@@ -53,36 +47,74 @@ public class FieldPainter {
         }
     }
 
+    private void chooseColor(Graphics g, final int number) {
+        Color color;
+        switch (number) {
+            case 1:
+                color = Color.BLUE;
+                break;
+            case 2:
+                color = new Color(3329330);
+                break;
+            case 3:
+                color = Color.RED;
+                break;
+            case 4:
+                color = new Color(139);
+                break;
+            case 5:
+                color = new Color(9109504);
+                break;
+            case 6:
+                color = new Color(11591910);
+                break;
+            case 7:
+                color = new Color(16729344);
+                break;
+            case 8:
+                color = new Color(14315734);
+                break;
+            default: color = Color.BLACK;
+
+        }
+        g.setColor(color);
+    }
+
     private void drawNumber(Graphics g, final Integer number, final int x, final int y) {
-        g.clearRect(x, y, Cell.WIDTH, Cell.HEIGHT);
-        g.drawString(number.toString(), x + 2, y + Cell.HEIGHT / 2);
+        g.setColor(Color.lightGray);
+        fillRect(g, x, y);
+
+        chooseColor(g, number);
+        g.drawString(number.toString(), x + 2 * Cell.WIDTH / 7 + 3, y + Cell.HEIGHT / 2 + 5);
         drawRect(g, x, y);
     }
 
     private void drawRect(Graphics g, final int x, final int y) {
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, Cell.WIDTH, Cell.HEIGHT);
+        g.drawRoundRect(x, y, Cell.WIDTH - ARC_SIZE,Cell.HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
     }
 
     private void fillRect(Graphics g, final int x, final int y) {
-        g.fillRect(x, y, Cell.WIDTH, Cell.HEIGHT);
-        drawRect(g, x, y);
+        g.fillRoundRect(x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
+//        drawRect(g, x, y);
     }
 
     private void drawBomb(Graphics g, final int x, final int y, boolean isTagged) {
         if (isTagged) {
             g.setColor(Color.GREEN);
         } else {
-            g.setColor(Color.red);
+            g.setColor(Color.RED);
         }
         fillRect(g, x, y);
+        drawRect(g, x, y);
     }
 
     private void drawTagged(Graphics g, final int x, final int y) {
         g.setColor(Color.ORANGE);
-        g.fillRect(x, y, Cell.WIDTH, Cell.HEIGHT);
+        fillRect(g, x, y);
         g.setColor(Color.RED);
-        g.drawString("?", x + 2, y + Cell.HEIGHT / 2);
+        g.drawImage(images.getFlag(), x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+//        g.drawString("?", x + 2 * Cell.WIDTH / 7 + 3, y + Cell.HEIGHT / 2 + 5);
         drawRect(g, x, y);
     }
 
@@ -90,8 +122,9 @@ public class FieldPainter {
         if (p.isTagged) {
             drawTagged(g, x, y);
         } else if (p.isEmptyPoint()) {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.LIGHT_GRAY);
             fillRect(g, x, y);
+            drawRect(g, x, y);
         } else if (p.isNumber()) {
             drawNumber(g, p.getNumber(), x, y);
         }
@@ -99,8 +132,9 @@ public class FieldPainter {
 
     private void drawCell(Graphics g, final int x, final int y, Cell cell) {
         if (!cell.isOpened) {
-            g.setColor(Color.darkGray);
+            g.setColor(Color.DARK_GRAY);
             fillRect(g, x, y);
+            drawRect(g, x, y);
         } else {
             drawOpenCell(g, x, y, cell);
         }

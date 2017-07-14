@@ -1,6 +1,7 @@
 package painting;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Sergey on 08.07.2017.
@@ -14,12 +15,16 @@ public class SwingPaintDemo {
     private static void createAndShowGUI() {
         JFrame f = new JFrame("Sapper");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        GameMenu menu = new GameMenu();
+        f.setJMenuBar(menu.createMenuBar());
+        f.setContentPane(menu.createContentPane());
 
-        GameMenu demo = new GameMenu();
-        f.setJMenuBar(demo.createMenuBar());
+        int row = 5;
+        int column = 5;
+        int counterBomb = 5;
 
-        f.add(new GamePanel(9, 9, 15));
-        f.setSize(450, 500);
+        f.setSize(row * 70, column * 90);
+        f.add(new GamePanel(row, column, counterBomb));
         f.setResizable(false);
         f.setVisible(true);
     }

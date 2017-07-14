@@ -27,13 +27,14 @@ public class Field {
         onFieldCreated(row, column);
     }
 
+    public Cell getCell(final int row, final int column) { return field[row][column]; }
+
     public Field(final Field fl) {
         this.counterBomb = fl.getCounterBomb();
         this.row = fl.row;
         this.column = fl.column;
         onFieldCreated(this.row, this.column);
     }
-
 
     public int getRow() { return row; }
     public int getColumn() { return column; }

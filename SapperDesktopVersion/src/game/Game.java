@@ -38,7 +38,7 @@ public class Game extends Field {
 
     private void sayCounterChange() {
         for (IGameListener listener : listeners) {
-            listener.scoreChange(Math.max(0, getCounterBomb() - counterTagged));
+            listener.scoreChange(counterTagged);
         }
     }
 
@@ -94,7 +94,7 @@ public class Game extends Field {
                 }
             }
         }
-        if (counter >= c.getNumber()) {
+        if (counter == c.getNumber()) {
             if (haveWrongTagged) {
                 sayGameOver(false);
                 return false;
