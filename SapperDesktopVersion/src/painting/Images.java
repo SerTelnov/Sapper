@@ -19,7 +19,6 @@ public class Images {
             smile = makeImageIcon(ImageIO.read(new File("C:\\pro\\Sapper\\smile.png")));
             sad = makeImageIcon(ImageIO.read(new File("C:\\pro\\Sapper\\sad.png")));
             flag = ImageIO.read(new File("C:\\pro\\Sapper\\flag.png"));
-            flagIcon = makeImageIcon(flag);
             bomb = ImageIO.read(new File("C:\\pro\\Sapper\\bomb.png"));
         } catch(IOException ie) {
             smile = null;
@@ -33,10 +32,9 @@ public class Images {
     }
 
     private BufferedImage flag, bomb;
-    private ImageIcon smile, sad, flagIcon;
+    private ImageIcon smile, sad;
     public ImageIcon getSmile() { return smile; }
     public ImageIcon getSad() { return sad; }
-    public ImageIcon getFlagIcon() { return flagIcon; }
     public BufferedImage getFlag() { return flag; }
     public BufferedImage getBomb() { return bomb; }
 }
