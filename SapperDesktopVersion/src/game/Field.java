@@ -78,7 +78,7 @@ public class Field {
     }
 
     protected Pair<Integer, Integer> getBombLocation(int bombIndex) {
-        return indexes.remove(0);
+        return indexes.get(bombIndex);
     }
 
     private void setBombs(int counterBomb) {

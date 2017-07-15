@@ -16,13 +16,12 @@ import java.io.IOException;
 public class Images {
     public Images() {
         try {
-            smile = makeImageIcon(ImageIO.read(new File("C:\\pro\\Sapper\\smile.png")));
-            sad = makeImageIcon(ImageIO.read(new File("C:\\pro\\Sapper\\sad.png")));
-            flag = ImageIO.read(new File("C:\\pro\\Sapper\\flag.png"));
+            smile = makeImageIcon(ImageIO.read(new File("images/smile.png")));
+            sad = makeImageIcon(ImageIO.read(new File("images/sad.png")));
+            flag = ImageIO.read(new File("images/flag.png"));
             flagIcon = makeImageIcon(flag);
-            bomb = ImageIO.read(new File("C:\\pro\\Sapper\\bomb.png"));
+            bomb = ImageIO.read(new File("images/bomb.png"));
         } catch(IOException ie) {
-            smile = null;
             System.out.println(ie.getMessage());
         }
     }

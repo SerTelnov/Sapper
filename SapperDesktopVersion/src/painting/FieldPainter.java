@@ -16,6 +16,7 @@ public class FieldPainter {
     final Images images = new Images();
     private Field field;
     private boolean isWin;
+    private final Color CELL_COLOR = new Color(2003199);
 
     public FieldPainter(final Field field, final boolean isWin) {
         this.field = field;
@@ -54,7 +55,7 @@ public class FieldPainter {
                 color = Color.BLUE;
                 break;
             case 2:
-                color = Color.GREEN;
+                color = new Color(25600);
                 break;
             case 3:
                 color = Color.RED;
@@ -130,7 +131,7 @@ public class FieldPainter {
 
     private void drawCell(Graphics g, final int x, final int y, Cell cell) {
         if (!cell.isOpened) {
-            g.setColor(Color.DARK_GRAY);
+            g.setColor(CELL_COLOR);
             fillRect(g, x, y);
             drawRect(g, x, y);
         } else {

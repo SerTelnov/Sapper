@@ -16,7 +16,13 @@ import java.awt.event.KeyListener;
 public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
     public JMenuBar createMenuBar() {
+
+        Font f = new Font("sans-serif", Font.PLAIN, 20);
+        UIManager.put("MenuBar.font", f);
+        UIManager.put("Menu.font", f);
+        UIManager.put("MenuItem.font", f);
         menuBar = new JMenuBar();
+        menuBar.setFont(f);
 
         gameSetting = new JMenu("Setting");
         gameSetting.setMnemonic(KeyEvent.VK_A);

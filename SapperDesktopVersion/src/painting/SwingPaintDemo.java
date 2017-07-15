@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class SwingPaintDemo {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> createAndShowGUI(9, 9, 10));
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
     private static void createGamePanel(final int row, final int column, final int counterBomb) {
@@ -27,15 +27,14 @@ public class SwingPaintDemo {
     private static JFrame f;
     private static GamePanel game;
 
-
-    private static void createAndShowGUI(final int row, final int column, final int counterBomb) {
+    private static void createAndShowGUI() {
         f = new JFrame("Sapper");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GameMenu menu = new GameMenu();
         f.setJMenuBar(menu.createMenuBar());
         f.validate();
 
-        createGamePanel(row, column, counterBomb);
+        createGamePanel(9, 9, 15);
 
         Images img = new Images();
 
