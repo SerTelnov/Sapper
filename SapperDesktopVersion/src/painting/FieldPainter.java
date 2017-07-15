@@ -54,7 +54,7 @@ public class FieldPainter {
                 color = Color.BLUE;
                 break;
             case 2:
-                color = new Color(3329330);
+                color = Color.GREEN;
                 break;
             case 3:
                 color = Color.RED;
@@ -101,20 +101,18 @@ public class FieldPainter {
 
     private void drawBomb(Graphics g, final int x, final int y, boolean isTagged) {
         if (isTagged) {
-            g.setColor(Color.GREEN);
+            drawTagged(g, x, y);
         } else {
             g.setColor(Color.RED);
+            g.drawImage(images.getBomb(), x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
         }
-        fillRect(g, x, y);
         drawRect(g, x, y);
     }
 
     private void drawTagged(Graphics g, final int x, final int y) {
         g.setColor(Color.ORANGE);
         fillRect(g, x, y);
-        g.setColor(Color.RED);
         g.drawImage(images.getFlag(), x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
-//        g.drawString("?", x + 2 * Cell.WIDTH / 7 + 3, y + Cell.HEIGHT / 2 + 5);
         drawRect(g, x, y);
     }
 
