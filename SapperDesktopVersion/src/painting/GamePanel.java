@@ -4,6 +4,7 @@ import game.Cell;
 import game.Game;
 import game.IGameListener;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.crypto.Data;
 import java.awt.*;
@@ -11,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -162,5 +165,14 @@ public class GamePanel extends JPanel implements IGameListener {
     @Override
     public void scoreChange(final int score) {
         scorePainter.changeScore(score);
+    }
+
+    public static BufferedImage loadImage(String address) throws IOException {
+        try {
+            return ImageIO.read(GamePanel.class.getResource("/" + address));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

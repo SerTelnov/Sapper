@@ -36,10 +36,9 @@ public class SwingPaintDemo {
 
         createGamePanel(9, 9, 15);
 
-        Images img = new Images();
+//        Images img = new Images();
 
-        f.setIconImage(img.getBomb());
-//        f.setResizable(false);
+//        f.setIconImage(img.getBomb());
         f.setVisible(true);
     }
 }
