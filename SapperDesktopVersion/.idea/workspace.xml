@@ -740,15 +740,15 @@
       <workItem from="1500007548218" duration="57000" />
       <workItem from="1500013853690" duration="160000" />
       <workItem from="1500122762801" duration="1837000" />
-      <workItem from="1500137199249" duration="2942000" />
+      <workItem from="1500137199249" duration="3167000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114050000" />
+    <option name="totallyTimeSpent" value="114275000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1103,7 +1103,7 @@
         <state relative-caret-position="675">
           <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
-            <marker date="1500143895549" expanded="true" signature="1156:1159" ph="{...}" />
+            <marker date="1500145053926" expanded="true" signature="1156:1159" ph="{...}" />
           </folding>
         </state>
       </provider>
