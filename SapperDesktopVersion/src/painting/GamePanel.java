@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     public GamePanel(Game newGame, PanelTopListener topListener) {
         topListener.addListener(this);
         createGame(newGame);
+        setBackground(Color.GRAY);
 
         setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -55,7 +56,6 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setBackground(Color.GRAY);
         g.setFont( font );
         fieldPainter = new FieldPainter(game, isWin);
         if (gameFinished) {
