@@ -15,8 +15,8 @@ public class Cell {
         this.column = 0;
     }
     private int number;
-    static public final int WIDTH = 45;
-    static public final int HEIGHT = 45;
+    public static final int WIDTH = 35;
+    public static final int HEIGHT = 35;
     public final int row, column;
     public boolean isOpened;
     public boolean isTagged;

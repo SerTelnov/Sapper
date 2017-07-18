@@ -14,6 +14,10 @@ public class Game extends Field {
     private int counterTagged;
     private int counterCorrectTagged;
 
+    public Game(final int row, final int column, final int counterBomb, final boolean isSetField) {
+        super(row, column, counterBomb, isSetField);
+    }
+
     public Game(final int row, final int column, final int counterBomb) {
         super(row, column, counterBomb);
         counterTagged = 0;
@@ -97,9 +101,8 @@ public class Game extends Field {
         if (counter == c.getNumber()) {
             if (haveWrongTagged) {
                 sayGameOver(false);
-                return false;
             }
-            return true;
+            return !haveWrongTagged;
         }
         return false;
     }

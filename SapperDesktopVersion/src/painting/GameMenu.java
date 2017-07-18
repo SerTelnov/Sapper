@@ -17,12 +17,12 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
     public JMenuBar createMenuBar() {
 
-        Font f = new Font("sans-serif", Font.PLAIN, 20);
-        UIManager.put("MenuBar.font", f);
-        UIManager.put("Menu.font", f);
-        UIManager.put("MenuItem.font", f);
+        Font font = new Font("sans-serif", Font.PLAIN, 20);
+        UIManager.put("MenuBar.font", font);
+        UIManager.put("Menu.font", font);
+        UIManager.put("MenuItem.font", font);
         menuBar = new JMenuBar();
-        menuBar.setFont(f);
+        menuBar.setFont(font);
 
         gameSetting = new JMenu("Setting");
         gameSetting.setMnemonic(KeyEvent.VK_A);
@@ -58,18 +58,17 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
     private JMenuItem difficultyLevel,
             easy, normal, hard, intense;
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source.equals(easy)) {
-            SwingPaintDemo.recreateGamePanel(5, 5, 5);
+            SwingPaint.recreatePanels(9, 9, 15);
         } else if (source.equals(normal)) {
-            SwingPaintDemo.recreateGamePanel(9, 9, 15);
+            SwingPaint.recreatePanels(16, 16, 40);
         } else if (source.equals(hard)) {
-            SwingPaintDemo.recreateGamePanel(30, 15, 99);
+            SwingPaint.recreatePanels(30, 16, 99);
         } else if (source.equals(intense)) {
-            SwingPaintDemo.recreateGamePanel(40, 20, 200);
+            SwingPaint.recreatePanels(40, 17, 200);
         }
     }
 

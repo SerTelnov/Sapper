@@ -11,9 +11,8 @@ import java.awt.*;
 
 public class FieldPainter {
     final int START_X = 60;
-    final int START_Y = 90;
-    private final int ARC_SIZE = 5;
-    final Images images = new Images();
+    final int START_Y = 30;
+    private final int ARC_SIZE = 3;
     private Field field;
     private boolean isWin;
     private final Color CELL_COLOR = new Color(2003199);
@@ -105,7 +104,7 @@ public class FieldPainter {
             drawTagged(g, x, y);
         } else {
             g.setColor(Color.RED);
-            g.drawImage(images.getBomb(), x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+            g.drawImage(ImagesGetter.BOMB_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
         }
         drawRect(g, x, y);
     }
@@ -113,7 +112,7 @@ public class FieldPainter {
     private void drawTagged(Graphics g, final int x, final int y) {
         g.setColor(Color.ORANGE);
         fillRect(g, x, y);
-        g.drawImage(images.getFlag(), x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+        g.drawImage(ImagesGetter.FLAG_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
         drawRect(g, x, y);
     }
 

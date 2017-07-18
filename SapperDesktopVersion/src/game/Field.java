@@ -5,8 +5,6 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static java.util.Collections.shuffle;
 
@@ -18,24 +16,26 @@ public class Field {
     private final int counterBomb;
     protected Cell[][] field;
     protected final int row, column;
-    private List<Pair<Integer, Integer>> indexes = new ArrayList<>();
+    public boolean isBuildField;
+    private List<Pair<Integer, Integer>> indexCells = new ArrayList<>();
+    private HashSet<Pair<Integer, Integer>> startCells = new HashSet<>();
+    public Field(final int row, final int column, final int counterBomb, final boolean isSetField) {
+        this.counterBomb = counterBomb;
+        this.row = row;
+        this.column = column;
+        this.isBuildField = isSetField;
+        setEmptyField();
+    }
 
     public Field(final int row, final int column, final int counterBomb) {
         this.counterBomb = counterBomb;
         this.row = row;
         this.column = column;
+        this.isBuildField = true;
         onFieldCreated(row, column);
     }
 
     public Cell getCell(final int row, final int column) { return field[row][column]; }
-
-    public Field(final Field fl) {
-        this.counterBomb = fl.getCounterBomb();
-        this.row = fl.row;
-        this.column = fl.column;
-        onFieldCreated(this.row, this.column);
-    }
-
     public int getRow() { return row; }
     public int getColumn() { return column; }
     public Cell[][] getField() { return field; }
@@ -78,7 +78,7 @@ public class Field {
     }
 
     protected Pair<Integer, Integer> getBombLocation(int bombIndex) {
-        return indexes.get(bombIndex);
+        return indexCells.get(bombIndex);
     }
 
     private void setBombs(int counterBomb) {
@@ -92,17 +92,64 @@ public class Field {
         }
     }
 
+    private void setEmptyField() {
+        assert row * column < counterBomb : "too many bombs";
+        field = new Cell[row][column];
+        for (int i = 0; i != row; i++) {
+            for (int j = 0; j != column; j++) {
+                field[i][j] = new Cell(i, j);
+            }
+        }
+    }
+
+    private void setField() {
+        for (int i = 0; i != row; i++) {
+            for (int j = 0; j != column; j++) {
+                Pair<Integer, Integer> indexes = new Pair<>(i, j);
+                if (!startCells.contains(indexes)) {
+                    indexCells.add(indexes);
+                }
+            }
+        }
+        shuffle(indexCells);
+        setBombs(counterBomb);
+        startCells.clear();
+        indexCells.clear();
+    }
+
+    public void setField(final int row, final int column) {
+        for (int rowIndex = -1; rowIndex <= 1; rowIndex++) {
+            for (int columnIndex = -1; columnIndex <= 1; columnIndex++) {
+                int curRow = row + rowIndex;
+                int curColumn = column + columnIndex;
+                if (!isOutOfBounds(curRow, curColumn)) {
+                    startCells.add(new Pair<>(curRow, curColumn));
+                }
+            }
+        }
+        try {
+            setField();
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        isBuildField = true;
+    }
+
     protected void setField(final int row, final int column, int counterBomb) {
         assert row * column < counterBomb : "too many bombs";
         field = new Cell[row][column];
         for (int i = 0; i != row; i++) {
             for (int j = 0; j != column; j++) {
-                indexes.add(new Pair<>(i, j));
+                Pair<Integer, Integer> indexes = new Pair<>(i, j);
+                if (!startCells.contains(indexes)) {
+                    indexCells.add(indexes);
+                }
                 field[i][j] = new Cell(i, j);
             }
         }
-        shuffle(indexes);
+        shuffle(indexCells);
         setBombs(counterBomb);
-        indexes.clear();
+        startCells.clear();
+        indexCells.clear();
     }
 }
