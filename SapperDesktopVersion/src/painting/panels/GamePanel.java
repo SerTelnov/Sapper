@@ -1,4 +1,4 @@
-package painting;
+package painting.panels;
 
 import game.Cell;
 import game.Game;
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     private boolean isWin;
     private boolean gameFinished;
     private boolean isSetFlagMode = false;
-    private Font font = new Font("Calibri", Font.BOLD, 20);
+    public static final Font font = new Font("Calibri", Font.BOLD, 20);
 
     public GamePanel(Game newGame, PanelTopListener topListener) {
         topListener.addListener(this);
@@ -33,10 +33,10 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
                 if (!gameFinished) {
                     int row = (e.getX() - fieldPainter.START_X) / Cell.WIDTH;
                     int column = (e.getY() - fieldPainter.START_Y) / Cell.HEIGHT;
-                    if (!game.isBuildField) {
-                        game.setField(row, column);
-                    }
                     if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
+                        if (!game.isBuildField) {
+                            game.setField(row, column);
+                        }
                         game.openCell(row, column);
                     } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
                         game.putTagged(row, column);
@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setFont( font );
-        fieldPainter = new FieldPainter(game, isWin);
+        fieldPainter = new FieldPainter(game, isWin, gameFinished);
         if (gameFinished) {
             fieldPainter.drawFinishGame(g);
         } else {

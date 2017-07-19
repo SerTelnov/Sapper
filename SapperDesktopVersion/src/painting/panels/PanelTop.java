@@ -1,8 +1,9 @@
-package painting;
+package painting.panels;
 
 import game.Cell;
 import game.Game;
 import game.IGameListener;
+import painting.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,25 +14,23 @@ import java.awt.event.ActionListener;
  */
 
 public class PanelTop extends JPanel implements IGameListener {
-    private JButton restartButton;
-    private Font font = new Font("Calibri", Font.BOLD, 20);
-    private boolean gameFinished = false;
     private boolean isSetFlagMode = false;
     private PanelTopListener topListener;
     private GameInfo gameInfo;
     private ScorePanel scorePanel;
+    private RestartButtonPanel restartButton;
+    private JButton flagModeButton;
 
     public PanelTop(Game game, PanelTopListener topListener) {
+        this.setFont(GamePanel.font);
         this.setBackground(Color.GRAY);
         this.topListener = topListener;
         setLayout(new BorderLayout());
 
-        restartButton = buttonFactory(ImagesGetter.SMILE_ICON);
+        restartButton = new RestartButtonPanel(this);
         add(restartButton, BorderLayout.CENTER);
-        ActionListener restartButtonListener = e -> restartGame();
-        restartButton.addActionListener(restartButtonListener);
 
-        JButton flagModeButton = buttonFactory(ImagesGetter.FLAG_ICON);
+        flagModeButton = buttonFactory(ImagesGetter.FLAG_ICON);
         add(flagModeButton, BorderLayout.LINE_START);
         ActionListener flagModeListener = e -> changeSetFlagMode();
         flagModeButton.addActionListener(flagModeListener);
@@ -41,15 +40,21 @@ public class PanelTop extends JPanel implements IGameListener {
         createPanel(game);
     }
 
-    private JButton buttonFactory(Icon icon) {
+    static JButton buttonFactory(Icon icon) {
         JButton button = new JButton(icon);
         button.setContentAreaFilled( false );
         button.setBorderPainted( false );
+        button.setFocusPainted( false );
         return button;
     }
 
     private void changeSetFlagMode() {
         isSetFlagMode = !isSetFlagMode;
+        if (isSetFlagMode) {
+            flagModeButton.setIcon(ImagesGetter.FLAG_TAGGED);
+        } else {
+            flagModeButton.setIcon(ImagesGetter.FLAG_ICON);
+        }
         topListener.sayChangeFlagMode(isSetFlagMode);
     }
 
@@ -62,9 +67,8 @@ public class PanelTop extends JPanel implements IGameListener {
 
     @Override
     public void gameOver(boolean isWin) {
-        gameFinished = true;
         if (!isWin) {
-            restartButton.setIcon(ImagesGetter.SAD_ICON);
+            restartButton.setSadIcon();
         }
         scorePanel.stopTime();
     }
@@ -75,21 +79,21 @@ public class PanelTop extends JPanel implements IGameListener {
     }
 
     private void createPanel(Game game) {
-        restartButton.setIcon(ImagesGetter.SMILE_ICON);
+        restartButton.setSmileIcon();
 
         gameInfo = new GameInfo(game);
         game.addListener(this);
     }
 
     private void restartGame(Game newGame) {
+        flagModeButton.setIcon(ImagesGetter.FLAG_ICON);
         scorePanel.recreatePanel(newGame.getCounterBomb());
-        gameFinished = false;
         scoreChange(0);
         topListener.sayRestartGame(newGame);
         createPanel(newGame);
     }
 
-    private void restartGame() {
+    public void restartGame() {
         restartGame(new Game(gameInfo.ROW, gameInfo.COLUMN, gameInfo.COUNTER_BOMB, false));
     }
 

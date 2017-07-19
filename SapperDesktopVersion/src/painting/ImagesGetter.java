@@ -13,31 +13,40 @@ import java.io.IOException;
  */
 
 public class ImagesGetter {
+    public static final int ICON_HEIGHT_SIZE = (int) (Cell.HEIGHT * 1.5);
+    public static final int ICON_WIDTH_SIZE = (int) (Cell.WIDTH * 1.5);
     private static class Images {
         public Images() {
             try {
-                smile = makeImageIcon(loadImage("images/smile.png"));
-                sad = makeImageIcon(loadImage("images/sad.png"));
+                gameIcon = loadImage("images/MineGameIcon.png");
+                smileIcon = makeImageIcon(loadImage("images/smile.png"));
+                sadIcon = makeImageIcon(loadImage("images/sad.png"));
                 flag = loadImage("images/flag.png");
                 flagIcon = makeImageIcon(flag);
                 bomb = loadImage("images/bomb.png");
+                fakeBomb = loadImage("images/fakeBomb.png");
+                explosion = loadImage("images/explosion.png");
+                flagTaggedIcon = makeImageIcon(loadImage("images/flagTagged.png"));
             } catch(IOException ie) {
                 System.out.println(ie.getMessage());
             }
         }
 
         private ImageIcon makeImageIcon(BufferedImage img) {
-            Image newImg = img.getScaledInstance( Cell.WIDTH, Cell.HEIGHT,  java.awt.Image.SCALE_SMOOTH );
+            Image newImg = img.getScaledInstance(ICON_HEIGHT_SIZE, ICON_WIDTH_SIZE,  java.awt.Image.SCALE_SMOOTH );
             return new ImageIcon(newImg);
         }
 
-        private BufferedImage flag, bomb;
-        private ImageIcon smile, sad, flagIcon;
-        public ImageIcon getSmile() { return smile; }
-        public ImageIcon getSad() { return sad; }
-        public ImageIcon getFlagIcon() { return flagIcon; }
-        public BufferedImage getFlag() { return flag; }
-        public BufferedImage getBomb() { return bomb; }
+        public BufferedImage flag, bomb, fakeBomb, explosion, gameIcon;
+        public ImageIcon smileIcon, sadIcon, flagIcon, flagTaggedIcon;
+//        public ImageIcon getSmile() { return smileIcon; }
+//        public ImageIcon getSad() { return sadIcon; }
+//        public ImageIcon getFlagIcon() { return flagIcon; }
+//        public BufferedImage getFlag() { return flag; }
+//        public BufferedImage getBomb() { return bomb; }
+//        public BufferedImage getFakeBomb() { return fakeBomb; }
+//        public BufferedImage getExplosion() { return explosion; }
+//        public BufferedImage getGameIcon() { return gameIcon; }
 
         private BufferedImage loadImage(String address) throws IOException {
             try {
@@ -49,9 +58,13 @@ public class ImagesGetter {
         }
     }
     private static Images imgs = new Images();
-    public static final BufferedImage BOMB_IMAGE = imgs.getBomb();
-    public static final BufferedImage FLAG_IMAGE = imgs.getFlag();
-    public static final ImageIcon SMILE_ICON = imgs.getSmile();
-    public static final ImageIcon SAD_ICON = imgs.getSad();
-    public static final ImageIcon FLAG_ICON = imgs.getFlagIcon();
+    public static final BufferedImage BOMB_IMAGE = imgs.bomb;
+    public static final BufferedImage FLAG_IMAGE = imgs.flag;
+    public static final ImageIcon SMILE_ICON = imgs.smileIcon;
+    public static final ImageIcon SAD_ICON = imgs.sadIcon;
+    public static final ImageIcon FLAG_ICON = imgs.flagIcon;
+    public static final BufferedImage EXPLOSION = imgs.explosion;
+    public static final BufferedImage FAKE_BOMB = imgs.fakeBomb;
+    public static final BufferedImage GAME_ICON = imgs.gameIcon;
+    public static final ImageIcon FLAG_TAGGED = imgs.flagTaggedIcon;
 }

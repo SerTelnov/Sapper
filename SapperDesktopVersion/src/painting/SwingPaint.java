@@ -2,6 +2,9 @@ package painting;
 
 import game.Cell;
 import game.Game;
+import painting.panels.GamePanel;
+import painting.panels.PanelTop;
+import painting.panels.PanelTopListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +16,7 @@ import java.awt.*;
 public class SwingPaint {
 
     public static final int RIGHT_LEFT_PADDING = 68 * 2;
-    public static final int TOP_PADDING = 210;
+    public static final int TOP_PADDING = 160;
     public static final int BOTTOM_PADDING = 20;
     private static PanelTop panelTop;
 
@@ -43,7 +46,6 @@ public class SwingPaint {
     }
 
     private static JFrame f;
-    private static GamePanel game;
 
     private static void createAndShowGUI() {
         f = new JFrame("Sapper");
@@ -52,10 +54,10 @@ public class SwingPaint {
         f.setJMenuBar(menu.createMenuBar());
         f.validate();
         f.setLayout(new BorderLayout());
-
+        f.setResizable( false );
         createPanels(9, 9, 15);
 
-        f.setIconImage(ImagesGetter.BOMB_IMAGE);
+        f.setIconImage(ImagesGetter.GAME_ICON);
         f.setVisible(true);
     }
 }

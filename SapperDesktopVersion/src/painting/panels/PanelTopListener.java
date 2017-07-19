@@ -1,4 +1,4 @@
-package painting;
+package painting.panels;
 
 import game.Game;
 

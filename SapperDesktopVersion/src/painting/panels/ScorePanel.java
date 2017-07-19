@@ -1,8 +1,6 @@
-package painting;
+package painting.panels;
 
-import game.Cell;
-import game.Game;
-import game.IGameListener;
+import painting.panels.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +9,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Elena on 18.07.2017.
+ * Created by Sergey on 18.07.2017.
  */
 public class ScorePanel extends JPanel {
 
-    private Font font = new Font("Calibri", Font.BOLD, 20);
     private final String SCORE_TEXT = "Flags: ";
     private final String TIME_TEXT = "Time: ";
     private JLabel score;
@@ -31,11 +28,11 @@ public class ScorePanel extends JPanel {
 
         score = new JLabel();
         add(score, BorderLayout.PAGE_START);
-        score.setFont( font );
+        score.setFont( GamePanel.font );
 
         JLabel time = new JLabel();
         add(time, BorderLayout.PAGE_END);
-        time.setFont( font );
+        time.setFont( GamePanel.font );
 
         ActionListener timeListener = event -> {
             if (!gameFinished) {

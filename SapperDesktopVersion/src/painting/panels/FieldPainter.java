@@ -1,7 +1,8 @@
-package painting;
+package painting.panels;
 
 import game.Cell;
 import game.Field;
+import painting.ImagesGetter;
 
 import java.awt.*;
 
@@ -16,10 +17,12 @@ public class FieldPainter {
     private Field field;
     private boolean isWin;
     private final Color CELL_COLOR = new Color(2003199);
+    private boolean gameFinished;
 
-    public FieldPainter(final Field field, final boolean isWin) {
+    public FieldPainter(final Field field, final boolean isWin, final boolean gameFinished) {
         this.field = field;
         this.isWin = isWin;
+        this.gameFinished = gameFinished;
     }
 
     public void drawField(Graphics g) {
@@ -85,7 +88,7 @@ public class FieldPainter {
         fillRect(g, x, y);
 
         chooseColor(g, number);
-        g.drawString(number.toString(), x + 2 * Cell.WIDTH / 7 + 3, y + Cell.HEIGHT / 2 + 5);
+        g.drawString(number.toString(), x + 2 * Cell.WIDTH / 7 + 2, y + Cell.HEIGHT / 2 + 5);
         drawRect(g, x, y);
     }
 
@@ -96,29 +99,39 @@ public class FieldPainter {
 
     private void fillRect(Graphics g, final int x, final int y) {
         g.fillRoundRect(x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
-//        drawRect(g, x, y);
     }
 
     private void drawBomb(Graphics g, final int x, final int y, boolean isTagged) {
         if (isTagged) {
-            drawTagged(g, x, y);
-        } else {
-            g.setColor(Color.RED);
+            g.setColor(Color.GREEN);
+            fillRect(g, x, y);
             g.drawImage(ImagesGetter.BOMB_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+        } else {
+            g.setColor(Color.DARK_GRAY);
+            fillRect(g, x, y);
+            g.drawImage(ImagesGetter.EXPLOSION, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
         }
         drawRect(g, x, y);
     }
 
-    private void drawTagged(Graphics g, final int x, final int y) {
-        g.setColor(Color.ORANGE);
-        fillRect(g, x, y);
-        g.drawImage(ImagesGetter.FLAG_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+    private void drawTagged(Graphics g, final int x, final int y, boolean isBomb) {
+        if (!gameFinished) {
+            g.setColor(Color.ORANGE);
+            fillRect(g, x, y);
+            g.drawImage(ImagesGetter.FLAG_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+        } else if (isWin) {
+            drawBomb(g, x, y, true);
+        } else {
+            g.setColor(Color.DARK_GRAY);
+            fillRect(g, x, y);
+            g.drawImage(ImagesGetter.FAKE_BOMB, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+        }
         drawRect(g, x, y);
     }
 
     private void drawOpenCell(Graphics g, final int x, final int y, Cell p) {
         if (p.isTagged) {
-            drawTagged(g, x, y);
+            drawTagged(g, x, y, p.isBomb());
         } else if (p.isEmptyPoint()) {
             g.setColor(Color.LIGHT_GRAY);
             fillRect(g, x, y);
