@@ -1,2 +1,2 @@
 # Sapper
-[Desktop Version](https://github.com/hangedplane/Sapper/blob/master/SapperDesktopVersion/out/artifacts/SapperDesktopVersion_jar/SapperDesktopVersion.jar)
+[Desktop Version](https://github.com/SerTelnov/Sapper/blob/master/SapperDesktopVersion/artifacts/SapperDesktopVersion_jar/SapperDesktopVersion.jar)
