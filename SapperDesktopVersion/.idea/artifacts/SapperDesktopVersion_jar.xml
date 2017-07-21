@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="SapperDesktopVersion:jar">
-    <output-path>$PROJECT_DIR$/artifacts/SapperDesktopVersion_jar</output-path>
-    <root id="archive" name="SapperDesktopVersion.jar">
-      <element id="module-output" name="SapperDesktopVersion" />
-    </root>
-  </artifact>
-</component>
