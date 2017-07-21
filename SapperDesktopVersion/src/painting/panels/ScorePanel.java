@@ -1,12 +1,11 @@
 package painting.panels;
 
-import painting.panels.GamePanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Sergey on 18.07.2017.
@@ -17,9 +16,9 @@ public class ScorePanel extends JPanel {
     private final String TIME_TEXT = "Time: ";
     private JLabel score;
     private Timer timer;
-    private Calendar startTime;
     private boolean gameFinished;
     private int counterBomb;
+    private long startTime;
 
     public ScorePanel(final int counterBomb) {
         this.counterBomb = counterBomb;
@@ -34,17 +33,13 @@ public class ScorePanel extends JPanel {
         add(time, BorderLayout.PAGE_END);
         time.setFont( GamePanel.font );
 
+        SimpleDateFormat timerFormat = new SimpleDateFormat("HH:mm:ss");
+        timerFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
         ActionListener timeListener = event -> {
             if (!gameFinished) {
-                Calendar current = Calendar.getInstance();
-                current.setTime(new Date());
-                MyTimer curTime = new MyTimer(startTime, current);
-                String timeStr = String.format(TIME_TEXT + "%d:%02d:%02d",
-                        curTime.getHour(),
-                        curTime.getMinute(),
-                        curTime.getSecond()
-                );
-                time.setText(timeStr);
+                long curTime = System.currentTimeMillis() - startTime;
+                time.setText(TIME_TEXT + timerFormat.format(new Date(curTime)));
             }
         };
 
@@ -56,8 +51,7 @@ public class ScorePanel extends JPanel {
         gameFinished = false;
         score.setText(SCORE_TEXT + "0/" + counterBomb);
 
-        startTime = Calendar.getInstance();
-        startTime.setTime(new Date());
+        startTime = System.currentTimeMillis();
 
         timer.setInitialDelay(0);
         timer.start();
@@ -74,28 +68,5 @@ public class ScorePanel extends JPanel {
 
     public void scoreChange(int score) {
         this.score.setText(SCORE_TEXT + score + "/" + counterBomb);
-    }
-
-    private class MyTimer {
-
-        private int hour, min, sec;
-
-        public MyTimer(Calendar start, Calendar cur) {
-            hour = cur.get(Calendar.HOUR) - start.get(Calendar.HOUR);
-            min = cur.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
-            sec = cur.get(Calendar.SECOND) - start.get(Calendar.SECOND);
-            if (sec < 0) {
-                sec += 60;
-                min--;
-            }
-            if (min < 0) {
-                min += 60;
-                hour--;
-            }
-        }
-
-        public int getHour() { return hour; }
-        public int getMinute() { return min; }
-        public int getSecond() { return sec; }
     }
 }
