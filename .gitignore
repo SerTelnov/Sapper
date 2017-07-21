@@ -1,6 +1,7 @@
-.out/*
-..idea/*
-SapperDesktopVersion.iml
+.SapperDesktopVersion/out/*
+.SapperDesktopVersion/idea/*
+.SapperDesktopVersion/SapperDesktopVersion.iml
+.SapperDesktopVersion/src/META-INF/*
 
 # Windows image file caches
 Thumbs.db
