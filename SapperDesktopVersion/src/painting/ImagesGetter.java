@@ -27,6 +27,7 @@ public class ImagesGetter {
                 fakeBomb = loadImage("images/fakeBomb.png");
                 explosion = loadImage("images/explosion.png");
                 flagTaggedIcon = makeImageIcon(loadImage("images/flagTagged.png"));
+                boredIcon = makeImageIcon(loadImage("images/bored.png"));
             } catch(IOException ie) {
                 System.out.println(ie.getMessage());
             }
@@ -38,15 +39,7 @@ public class ImagesGetter {
         }
 
         public BufferedImage flag, bomb, fakeBomb, explosion, gameIcon;
-        public ImageIcon smileIcon, sadIcon, flagIcon, flagTaggedIcon;
-//        public ImageIcon getSmile() { return smileIcon; }
-//        public ImageIcon getSad() { return sadIcon; }
-//        public ImageIcon getFlagIcon() { return flagIcon; }
-//        public BufferedImage getFlag() { return flag; }
-//        public BufferedImage getBomb() { return bomb; }
-//        public BufferedImage getFakeBomb() { return fakeBomb; }
-//        public BufferedImage getExplosion() { return explosion; }
-//        public BufferedImage getGameIcon() { return gameIcon; }
+        public ImageIcon smileIcon, sadIcon, flagIcon, flagTaggedIcon, boredIcon;
 
         private BufferedImage loadImage(String address) throws IOException {
             try {
@@ -57,6 +50,7 @@ public class ImagesGetter {
             return null;
         }
     }
+
     private static Images imgs = new Images();
     public static final BufferedImage BOMB_IMAGE = imgs.bomb;
     public static final BufferedImage FLAG_IMAGE = imgs.flag;
@@ -67,4 +61,5 @@ public class ImagesGetter {
     public static final BufferedImage FAKE_BOMB = imgs.fakeBomb;
     public static final BufferedImage GAME_ICON = imgs.gameIcon;
     public static final ImageIcon FLAG_TAGGED = imgs.flagTaggedIcon;
+    public static final ImageIcon BORED_ICON = imgs.boredIcon;
 }

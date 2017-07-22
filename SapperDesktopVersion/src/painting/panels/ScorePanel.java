@@ -10,6 +10,7 @@ import java.util.TimeZone;
 /**
  * Created by Sergey on 18.07.2017.
  */
+
 public class ScorePanel extends JPanel {
 
     private final String SCORE_TEXT = "Flags: ";
@@ -43,7 +44,7 @@ public class ScorePanel extends JPanel {
             }
         };
 
-        timer = new Timer(500, timeListener);
+        timer = new Timer(1000, timeListener);
         createPanel();
     }
 

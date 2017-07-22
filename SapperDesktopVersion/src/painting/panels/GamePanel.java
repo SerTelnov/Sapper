@@ -19,9 +19,11 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     private boolean isWin;
     private boolean gameFinished;
     private boolean isSetFlagMode = false;
+    private GamePanelListener gamePanelListener;
     public static final Font font = new Font("Calibri", Font.BOLD, 20);
 
-    public GamePanel(Game newGame, PanelTopListener topListener) {
+    public GamePanel(Game newGame, PanelTopListener topListener, GamePanelListener gpl) {
+        this.gamePanelListener = gpl;
         topListener.addListener(this);
         createGame(newGame);
         setBackground(Color.GRAY);
@@ -33,13 +35,18 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
                 if (!gameFinished) {
                     int row = (e.getX() - fieldPainter.START_X) / Cell.WIDTH;
                     int column = (e.getY() - fieldPainter.START_Y) / Cell.HEIGHT;
-                    if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
-                        if (!game.isBuildField) {
-                            game.setField(row, column);
+                    if (!game.isOutOfBounds(row, column)) {
+                        if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
+                            if (!game.isBuildField) {
+                                game.setField(row, column);
+                            }
+                            game.openCell(row, column);
+                            if (!gameFinished) {
+                                gamePanelListener.sayTouchField();
+                            }
+                        } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
+                            game.putTagged(row, column);
                         }
-                        game.openCell(row, column);
-                    } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
-                        game.putTagged(row, column);
                     }
                 }
             }

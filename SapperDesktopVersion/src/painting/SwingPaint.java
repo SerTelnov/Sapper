@@ -3,6 +3,7 @@ package painting;
 import game.Cell;
 import game.Game;
 import painting.panels.GamePanel;
+import painting.panels.GamePanelListener;
 import painting.panels.PanelTop;
 import painting.panels.PanelTopListener;
 
@@ -33,8 +34,9 @@ public class SwingPaint {
         setFrameSize(row, column);
         Game game = new Game(row, column, counterBomb, false);
         PanelTopListener topListener = new PanelTopListener();
-        panelTop = new PanelTop(game, topListener);
-        GamePanel gamePanel = new GamePanel(game, topListener);
+        GamePanelListener gpl = new GamePanelListener();
+        panelTop = new PanelTop(game, topListener, gpl);
+        GamePanel gamePanel = new GamePanel(game, topListener, gpl);
         f.add(panelTop, BorderLayout.PAGE_START);
         f.add(gamePanel, BorderLayout.CENTER);
     }

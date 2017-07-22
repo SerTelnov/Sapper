@@ -5,10 +5,11 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-.SapperDesktopVersion/out/*
-.SapperDesktopVersion/idea/*
-.SapperDesktopVersion/SapperDesktopVersion.iml
-.SapperDesktopVersion/src/META-INF/*
+SapperDesktopVersion/.idea/*
+SapperDesktopVersion/out/*
+SapperDesktopVersion/idea/*
+SapperDesktopVersion/SapperDesktopVersion.iml
+SapperDesktopVersion/src/META-INF/*
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

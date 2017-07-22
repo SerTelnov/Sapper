@@ -13,18 +13,21 @@ import java.awt.event.ActionListener;
  * Created by Sergey on 16.07.2017.
  */
 
-public class PanelTop extends JPanel implements IGameListener {
+public class PanelTop extends JPanel implements IGameListener, IGamePanelListener {
     private boolean isSetFlagMode = false;
     private PanelTopListener topListener;
     private GameInfo gameInfo;
     private ScorePanel scorePanel;
     private RestartButtonPanel restartButton;
     private JButton flagModeButton;
+    private GamePanelListener gamePanelListener;
 
-    public PanelTop(Game game, PanelTopListener topListener) {
+    public PanelTop(Game game, PanelTopListener topListener, GamePanelListener gamePanelListener) {
         this.setFont(GamePanel.font);
         this.setBackground(Color.GRAY);
         this.topListener = topListener;
+        this.gamePanelListener = gamePanelListener;
+        this.gamePanelListener.addListener(this);
         setLayout(new BorderLayout());
 
         restartButton = new RestartButtonPanel(this);
@@ -96,6 +99,12 @@ public class PanelTop extends JPanel implements IGameListener {
     public void restartGame() {
         restartGame(new Game(gameInfo.ROW, gameInfo.COLUMN, gameInfo.COUNTER_BOMB, false));
     }
+
+    @Override
+    public void touchField() {
+        restartButton.setBoredIcon();
+    }
+
 
     private class GameInfo {
         public final int ROW, COLUMN, COUNTER_BOMB;

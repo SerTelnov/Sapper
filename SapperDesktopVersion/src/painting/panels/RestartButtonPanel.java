@@ -14,12 +14,20 @@ public class RestartButtonPanel extends JPanel {
     private JButton restartButton;
     private PanelTop panelTop;
     private boolean isSad = false;
+    private Timer boredModeTimer;
+    private final int BORED_MODE_TIMER = 150;
 
     public RestartButtonPanel(PanelTop panelTop) {
         this.panelTop = panelTop;
         this.setBackground(Color.GRAY);
         this.setFont( GamePanel.font );
         setLayout( new BorderLayout() );
+
+        ActionListener boredModeTimerListener = event -> {
+            restartButton.setIcon(ImagesGetter.SMILE_ICON);
+            boredModeTimer.stop();
+        };
+        boredModeTimer = new Timer(BORED_MODE_TIMER, boredModeTimerListener);
 
         restartButton = PanelTop.buttonFactory(ImagesGetter.SMILE_ICON);
         add(restartButton, BorderLayout.CENTER);
@@ -47,5 +55,12 @@ public class RestartButtonPanel extends JPanel {
 
     private void restartGame() {
         panelTop.restartGame();
+    }
+
+    public void setBoredIcon() {
+        restartButton.setIcon(ImagesGetter.BORED_ICON);
+
+        boredModeTimer.setInitialDelay(BORED_MODE_TIMER);
+        boredModeTimer.start();
     }
 }
