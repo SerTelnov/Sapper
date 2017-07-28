@@ -1,11 +1,13 @@
-package painting;
+package UI;
 
+import UI.UIElements.GameTimer;
+import UI.UIElements.ImagesGetter;
+import game.ActionField;
 import game.Cell;
-import game.Game;
-import painting.panels.GamePanel;
-import painting.panels.GamePanelListener;
-import painting.panels.PanelTop;
-import painting.panels.PanelTopListener;
+import UI.panels.GamePanel;
+import UI.panels.GamePanelListener;
+import UI.panels.PanelTop;
+import UI.panels.PanelTopListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,18 +34,19 @@ public class SwingPaint {
 
     private static void createPanels(final int row, final int column, final int counterBomb) {
         setFrameSize(row, column);
-        Game game = new Game(row, column, counterBomb, false);
+        ActionField actionField = new ActionField(row, column, counterBomb);
+        GameTimer gameTimer = new GameTimer();
         PanelTopListener topListener = new PanelTopListener();
         GamePanelListener gpl = new GamePanelListener();
-        panelTop = new PanelTop(game, topListener, gpl);
-        GamePanel gamePanel = new GamePanel(game, topListener, gpl);
+        panelTop = new PanelTop(actionField, topListener, gpl, gameTimer);
+        GamePanel gamePanel = new GamePanel(actionField, topListener, gpl);
         f.add(panelTop, BorderLayout.PAGE_START);
         f.add(gamePanel, BorderLayout.CENTER);
     }
 
     public static void recreatePanels(final int row, final int column, final int counterBomb) {
-        Game game = new Game(row, column, counterBomb, false);
-        panelTop.recreatePanel(game);
+        ActionField actionField = new ActionField(row, column, counterBomb);
+        panelTop.recreatePanel(actionField);
         setFrameSize(row, column);
     }
 

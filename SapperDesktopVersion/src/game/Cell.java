@@ -28,4 +28,5 @@ public class Cell {
         return number >= 1 && number <= 8;
     }
     public void incNumber() { number++; }
+    public void openCell() { isOpened = true; }
 }

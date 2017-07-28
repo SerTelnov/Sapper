@@ -10,6 +10,10 @@ SapperDesktopVersion/out/*
 SapperDesktopVersion/idea/*
 SapperDesktopVersion/SapperDesktopVersion.iml
 SapperDesktopVersion/src/META-INF/*
+SapperDesktopVersion/GameSapper/*
+SapperAndroidApp/*
+.gitignore
+.gitattributes
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

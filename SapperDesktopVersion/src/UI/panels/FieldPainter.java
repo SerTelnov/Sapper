@@ -1,8 +1,8 @@
-package painting.panels;
+package UI.panels;
 
 import game.Cell;
 import game.Field;
-import painting.ImagesGetter;
+import UI.UIElements.ImagesGetter;
 
 import java.awt.*;
 

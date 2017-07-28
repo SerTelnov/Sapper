@@ -1,7 +1,7 @@
-package painting.panels;
+package UI.panels;
 
+import game.ActionField;
 import game.Cell;
-import game.Game;
 import game.IGameListener;
 
 import javax.swing.*;
@@ -15,17 +15,17 @@ import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel implements IGameListener, IPanelTopListener {
     private FieldPainter fieldPainter;
-    private Game game;
+    private ActionField actionField;
     private boolean isWin;
     private boolean gameFinished;
     private boolean isSetFlagMode = false;
     private GamePanelListener gamePanelListener;
     public static final Font font = new Font("Calibri", Font.BOLD, 20);
 
-    public GamePanel(Game newGame, PanelTopListener topListener, GamePanelListener gpl) {
+    public GamePanel(ActionField newActionField, PanelTopListener topListener, GamePanelListener gpl) {
         this.gamePanelListener = gpl;
         topListener.addListener(this);
-        createGame(newGame);
+        createGame(newActionField);
         setBackground(Color.GRAY);
 
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -35,17 +35,17 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
                 if (!gameFinished) {
                     int row = (e.getX() - fieldPainter.START_X) / Cell.WIDTH;
                     int column = (e.getY() - fieldPainter.START_Y) / Cell.HEIGHT;
-                    if (!game.isOutOfBounds(row, column)) {
+                    if (!actionField.isOutOfBounds(row, column)) {
                         if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
-                            if (!game.isBuildField) {
-                                game.setField(row, column);
-                            }
-                            game.openCell(row, column);
+//                            if (!actionField.isBuildField) {
+//                                actionField.setField(row, column);
+//                            }
+                            actionField.openCell(row, column);
                             if (!gameFinished) {
                                 gamePanelListener.sayTouchField();
                             }
                         } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
-                            game.putTagged(row, column);
+                            actionField.putTagged(row, column);
                         }
                     }
                 }
@@ -53,9 +53,9 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
         });
     }
 
-    private void createGame(Game game) {
-        game.addListener(this);
-        this.game = game;
+    private void createGame(ActionField actionField) {
+        actionField.addListener(this);
+        this.actionField = actionField;
         gameFinished = false;
         isWin = false;
         isSetFlagMode = false;
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setFont( font );
-        fieldPainter = new FieldPainter(game, isWin, gameFinished);
+        fieldPainter = new FieldPainter(actionField, isWin, gameFinished);
         if (gameFinished) {
             fieldPainter.drawFinishGame(g);
         } else {
@@ -89,8 +89,8 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     }
 
     @Override
-    public void restartGame(Game newGame) {
-        createGame(newGame);
+    public void restartGame(ActionField newActionField) {
+        createGame(newActionField);
         repaint();
     }
 

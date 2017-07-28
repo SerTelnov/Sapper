@@ -1,6 +1,6 @@
-package painting.panels;
+package UI.panels;
 
-import painting.ImagesGetter;
+import UI.UIElements.ImagesGetter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class RestartButtonPanel extends JPanel {
 
     public RestartButtonPanel(PanelTop panelTop) {
         this.panelTop = panelTop;
-        this.setBackground(Color.GRAY);
+        this.setBackground( Color.GRAY );
         this.setFont( GamePanel.font );
         setLayout( new BorderLayout() );
 

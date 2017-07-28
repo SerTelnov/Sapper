@@ -1,9 +1,10 @@
-package painting.panels;
+package UI.panels;
 
+import UI.UIElements.GameTimer;
+import UI.UIElements.ImagesGetter;
+import game.ActionField;
 import game.Cell;
-import game.Game;
 import game.IGameListener;
-import painting.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
     private JButton flagModeButton;
     private GamePanelListener gamePanelListener;
 
-    public PanelTop(Game game, PanelTopListener topListener, GamePanelListener gamePanelListener) {
+    public PanelTop(ActionField actionField, PanelTopListener topListener, GamePanelListener gamePanelListener, GameTimer gameTimer) {
         this.setFont(GamePanel.font);
         this.setBackground(Color.GRAY);
         this.topListener = topListener;
@@ -38,9 +39,9 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         ActionListener flagModeListener = e -> changeSetFlagMode();
         flagModeButton.addActionListener(flagModeListener);
 
-        scorePanel = new ScorePanel(game.getCounterBomb());
+        scorePanel = new ScorePanel(actionField.getCounterBomb(), gameTimer);
         add(scorePanel, BorderLayout.LINE_END);
-        createPanel(game);
+        createPanel(actionField);
     }
 
     static JButton buttonFactory(Icon icon) {
@@ -61,8 +62,8 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         topListener.sayChangeFlagMode(isSetFlagMode);
     }
 
-    public void recreatePanel(Game newGame) {
-        restartGame(newGame);
+    public void recreatePanel(ActionField newActionField) {
+        restartGame(newActionField);
     }
 
     @Override
@@ -81,23 +82,23 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         scorePanel.scoreChange(score);
     }
 
-    private void createPanel(Game game) {
+    private void createPanel(ActionField actionField) {
         restartButton.setSmileIcon();
 
-        gameInfo = new GameInfo(game);
-        game.addListener(this);
+        gameInfo = new GameInfo(actionField);
+        actionField.addListener(this);
     }
 
-    private void restartGame(Game newGame) {
+    private void restartGame(ActionField newActionField) {
         flagModeButton.setIcon(ImagesGetter.FLAG_ICON);
-        scorePanel.recreatePanel(newGame.getCounterBomb());
+        scorePanel.recreatePanel(newActionField.getCounterBomb());
         scoreChange(0);
-        topListener.sayRestartGame(newGame);
-        createPanel(newGame);
+        topListener.sayRestartGame(newActionField);
+        createPanel(newActionField);
     }
 
     public void restartGame() {
-        restartGame(new Game(gameInfo.ROW, gameInfo.COLUMN, gameInfo.COUNTER_BOMB, false));
+        restartGame(new ActionField(gameInfo.ROW, gameInfo.COLUMN, gameInfo.COUNTER_BOMB));
     }
 
     @Override
@@ -108,10 +109,10 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
 
     private class GameInfo {
         public final int ROW, COLUMN, COUNTER_BOMB;
-        public GameInfo(Game game) {
-            ROW = game.getRow();
-            COLUMN = game.getColumn();
-            COUNTER_BOMB = game.getCounterBomb();
+        public GameInfo(ActionField actionField) {
+            ROW = actionField.getRow();
+            COLUMN = actionField.getColumn();
+            COUNTER_BOMB = actionField.getCounterBomb();
         }
     }
 }

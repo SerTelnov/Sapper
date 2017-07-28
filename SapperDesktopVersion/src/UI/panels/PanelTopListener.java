@@ -1,12 +1,12 @@
-package painting.panels;
+package UI.panels;
 
-import game.Game;
+import game.ActionField;
 
 import java.util.ArrayList;
 import java.util.List;
 
 interface IPanelTopListener {
-    void restartGame(Game newGame);
+    void restartGame(ActionField newActionField);
     void changeFlagMode(boolean isSetFlagMode);
 }
 
@@ -17,9 +17,9 @@ public class PanelTopListener {
         listeners.add(listener);
     }
 
-    public void sayRestartGame(Game game) {
+    public void sayRestartGame(ActionField actionField) {
         for (IPanelTopListener listener : listeners) {
-            listener.restartGame(game);
+            listener.restartGame(actionField);
         }
     }
 

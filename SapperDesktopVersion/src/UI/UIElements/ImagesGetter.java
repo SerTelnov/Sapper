@@ -1,4 +1,4 @@
-package painting;
+package UI.UIElements;
 
 import game.Cell;
 

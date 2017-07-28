@@ -8,6 +8,6 @@ public class Tester {
     public static void main(String[] args) {
         new CellTest().run();
         new FieldTest().run();
-        new GameTest().run();
+        new ActionFieldTest().run();
     }
 }

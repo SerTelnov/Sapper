@@ -1,4 +1,4 @@
-package painting.panels;
+package UI.panels;
 
 import java.util.ArrayList;
 import java.util.List;

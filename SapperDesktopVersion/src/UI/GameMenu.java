@@ -1,4 +1,4 @@
-package painting;
+package UI;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -24,28 +24,30 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         menuBar = new JMenuBar();
         menuBar.setFont(font);
 
-        gameSetting = new JMenu("Setting");
+        gameSetting = new JMenu("Game");
         gameSetting.setMnemonic(KeyEvent.VK_A);
         menuBar.add(gameSetting);
+
+        startNewGame = menuItemFactory("new game");
+        gameSetting.add(startNewGame);
 
         difficultyLevel = new JMenu("level difficulty");
 
         gameSetting.addSeparator();
 
-        easy = createMenuItem("Easy");
+        easy = menuItemFactory("Easy");
         difficultyLevel.add(easy);
-        normal = createMenuItem("Normal");
+        normal = menuItemFactory("Normal");
         difficultyLevel.add(normal);
-        hard = createMenuItem("Hard");
+        hard = menuItemFactory("Hard");
         difficultyLevel.add(hard);
-        intense = createMenuItem("Intense");
+        intense = menuItemFactory("Intense");
         difficultyLevel.add(intense);
         gameSetting.add(difficultyLevel);
-
         return menuBar;
     }
 
-    private JMenuItem createMenuItem(String name) {
+    private JMenuItem menuItemFactory(String name) {
         JMenuItem mit = new JMenuItem(name);
         mit.setSelected(true);
         mit.setMnemonic(KeyEvent.VK_R);
@@ -55,7 +57,7 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
     private JMenuBar menuBar;
     private JMenu gameSetting;
-    private JMenuItem difficultyLevel,
+    private JMenuItem difficultyLevel, startNewGame,
             easy, normal, hard, intense;
 
     @Override
@@ -69,6 +71,8 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
             SwingPaint.recreatePanels(30, 16, 99);
         } else if (source.equals(intense)) {
             SwingPaint.recreatePanels(40, 17, 200);
+        } else if (source.equals(startNewGame)) {
+            SwingPaint.recreatePanels(9, 9, 15);
         }
     }
 

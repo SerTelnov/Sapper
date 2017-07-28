@@ -1,11 +1,10 @@
-package painting.panels;
+package UI.panels;
+
+import UI.UIElements.GameTimer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by Sergey on 18.07.2017.
@@ -16,12 +15,13 @@ public class ScorePanel extends JPanel {
     private final String SCORE_TEXT = "Flags: ";
     private final String TIME_TEXT = "Time: ";
     private JLabel score;
-    private Timer timer;
+    private Timer clock;
     private boolean gameFinished;
     private int counterBomb;
-    private long startTime;
+    private GameTimer gameTimer;
 
-    public ScorePanel(final int counterBomb) {
+    public ScorePanel(final int counterBomb, GameTimer gameTimer) {
+        this.gameTimer = gameTimer;
         this.counterBomb = counterBomb;
         this.setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -34,17 +34,13 @@ public class ScorePanel extends JPanel {
         add(time, BorderLayout.PAGE_END);
         time.setFont( GamePanel.font );
 
-        SimpleDateFormat timerFormat = new SimpleDateFormat("HH:mm:ss");
-        timerFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-
         ActionListener timeListener = event -> {
             if (!gameFinished) {
-                long curTime = System.currentTimeMillis() - startTime;
-                time.setText(TIME_TEXT + timerFormat.format(new Date(curTime)));
+                time.setText(TIME_TEXT + this.gameTimer.getCurrentTimeText());
             }
         };
 
-        timer = new Timer(1000, timeListener);
+        clock = new Timer(1000, timeListener);
         createPanel();
     }
 
@@ -52,10 +48,10 @@ public class ScorePanel extends JPanel {
         gameFinished = false;
         score.setText(SCORE_TEXT + "0/" + counterBomb);
 
-        startTime = System.currentTimeMillis();
+        gameTimer.setNewTimer();
 
-        timer.setInitialDelay(0);
-        timer.start();
+        clock.setInitialDelay(0);
+        clock.start();
     }
 
     public void recreatePanel(final int counterBomb) {
