@@ -1,6 +1,6 @@
-package game.tests;
+package tests;
 
-import game.*;
+import game.Cell;
 
 /**
  * Created by Sergey on 07.07.2017.
@@ -42,9 +42,9 @@ public class CellTest {
             try {
                 checkPoint(i);
             } catch (RuntimeException e) {
-                throw new RuntimeException("game.Cell game.tests failed " + e.getMessage());
+                throw new RuntimeException("game.game.Cell game.tests failed " + e.getMessage());
             }
         }
-        System.out.println("Cell tests passed");
+        System.out.println("game.Cell tests passed");
     }
 }

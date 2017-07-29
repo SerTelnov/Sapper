@@ -12,6 +12,11 @@ SapperDesktopVersion/SapperDesktopVersion.iml
 SapperDesktopVersion/src/META-INF/*
 SapperDesktopVersion/GameSapper/*
 SapperAndroidApp/*
+GameSapper/out/*
+GameSapper/.idea/*
+GameSapper/GameSapper.iml
+
+
 .gitignore
 .gitattributes
 

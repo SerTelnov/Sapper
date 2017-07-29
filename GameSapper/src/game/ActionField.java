@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Sergey on 07.07.2017.
  */
 
-public class ActionField extends Field {
+public class ActionField extends Field implements IGame {
     private List<IGameListener> listeners = new ArrayList<>();
     private int counterTagged = 0;
     private int counterCorrectTagged = 0;
@@ -61,7 +61,6 @@ public class ActionField extends Field {
         sayScoreChange();
         sayCellChange(cell);
     }
-
 
     public void addListener (IGameListener listener) {
         listeners.add(listener);

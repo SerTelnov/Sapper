@@ -1,10 +1,8 @@
-package game.tests;
+package tests;
 
-import game.ActionField;
 import game.Field;
 import javafx.util.Pair;
-import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 
 /**

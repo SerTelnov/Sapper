@@ -1,4 +1,4 @@
-package game.tests;
+package tests;
 
 /**
  * Created by @author Telnov Sergey on 28.07.2017.

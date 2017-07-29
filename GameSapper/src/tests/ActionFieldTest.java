@@ -1,4 +1,4 @@
-package game.tests;
+package tests;
 
 import game.Cell;
 import game.IGameListener;
@@ -43,7 +43,6 @@ public class ActionFieldTest implements IGameListener {
     }
 
     private void runTestOpenCell() {
-        int counterOpenCells = 0;
         for (int i = 0; i != curActionTest.getRow(); i++) {
             for (int j = 0; j != curActionTest.getColumn(); j++) {
                 if (!curActionTest.isBomb(i, j)) {

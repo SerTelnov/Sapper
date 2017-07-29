@@ -1,8 +1,9 @@
-package game.tests;
+package tests;
 
 import game.Cell;
 import game.Field;
 import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,14 +80,14 @@ public class FieldTest {
             try {
                 checkTest(curTest.length, curTest[0].length, curTest);
             } catch (RuntimeException e) {
-                throw new RuntimeException("game.Field game.tests failed #: " +
+                throw new RuntimeException("game.game.Field game.tests failed #: " +
                         "'" + counter + "' "
                         + e.getMessage()
                         );
             }
             counter++;
         }
-        System.out.println("Field tests passed");
+        System.out.println("game.Field tests passed");
     }
 
     private ArrayList<Pair<Integer, Integer>> getBombCoordinate(final int[][] curTest) {

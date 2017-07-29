@@ -1,9 +1,7 @@
-package game.tests;
+package tests;
 
 import game.ActionField;
 import javafx.util.Pair;
-
-import java.util.ArrayList;
 
 /**
  * Created by Sergey on 13.07.2017.

@@ -1,8 +1,4 @@
-package game.tests;
-
-import javafx.util.Pair;
-
-import java.awt.event.ActionListener;
+package tests;
 
 /**
  * Created by @author Telnov Sergey on 28.07.2017.

@@ -18,6 +18,8 @@ public class FieldPainter {
     private boolean isWin;
     private final Color CELL_COLOR = new Color(2003199);
     private boolean gameFinished;
+    public static final int CELL_WIDTH = 35;
+    public static final int CELL_HEIGHT = 35;
 
     public FieldPainter(final Field field, final boolean isWin, final boolean gameFinished) {
         this.field = field;
@@ -88,28 +90,28 @@ public class FieldPainter {
         fillRect(g, x, y);
 
         chooseColor(g, number);
-        g.drawString(number.toString(), x + 2 * Cell.WIDTH / 7 + 2, y + Cell.HEIGHT / 2 + 5);
+        g.drawString(number.toString(), x + 2 * CELL_WIDTH / 7 + 2, y + CELL_HEIGHT / 2 + 5);
         drawRect(g, x, y);
     }
 
     private void drawRect(Graphics g, final int x, final int y) {
         g.setColor(Color.BLACK);
-        g.drawRoundRect(x, y, Cell.WIDTH - ARC_SIZE,Cell.HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
+        g.drawRoundRect(x, y, CELL_WIDTH - ARC_SIZE,CELL_HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
     }
 
     private void fillRect(Graphics g, final int x, final int y) {
-        g.fillRoundRect(x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
+        g.fillRoundRect(x, y, CELL_WIDTH - ARC_SIZE, CELL_HEIGHT - ARC_SIZE, ARC_SIZE, ARC_SIZE);
     }
 
     private void drawBomb(Graphics g, final int x, final int y, boolean isTagged) {
         if (isTagged) {
             g.setColor(Color.GREEN);
             fillRect(g, x, y);
-            g.drawImage(ImagesGetter.BOMB_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+            g.drawImage(ImagesGetter.BOMB_IMAGE, x, y, CELL_WIDTH - ARC_SIZE, CELL_HEIGHT - ARC_SIZE, null);
         } else {
             g.setColor(Color.DARK_GRAY);
             fillRect(g, x, y);
-            g.drawImage(ImagesGetter.EXPLOSION, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+            g.drawImage(ImagesGetter.EXPLOSION, x, y, CELL_WIDTH - ARC_SIZE, CELL_HEIGHT - ARC_SIZE, null);
         }
         drawRect(g, x, y);
     }
@@ -118,13 +120,13 @@ public class FieldPainter {
         if (!gameFinished) {
             g.setColor(Color.ORANGE);
             fillRect(g, x, y);
-            g.drawImage(ImagesGetter.FLAG_IMAGE, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+            g.drawImage(ImagesGetter.FLAG_IMAGE, x, y, CELL_WIDTH - ARC_SIZE, CELL_HEIGHT - ARC_SIZE, null);
         } else if (isWin) {
             drawBomb(g, x, y, true);
         } else {
             g.setColor(Color.DARK_GRAY);
             fillRect(g, x, y);
-            g.drawImage(ImagesGetter.FAKE_BOMB, x, y, Cell.WIDTH - ARC_SIZE, Cell.HEIGHT - ARC_SIZE, null);
+            g.drawImage(ImagesGetter.FAKE_BOMB, x, y, CELL_WIDTH - ARC_SIZE, CELL_HEIGHT - ARC_SIZE, null);
         }
         drawRect(g, x, y);
     }
@@ -151,6 +153,6 @@ public class FieldPainter {
         }
     }
 
-    private int getX(int index) { return index * Cell.WIDTH + this.START_X; }
-    private int getY(int index) { return index * Cell.HEIGHT + this.START_Y; }
+    private int getX(int index) { return index * CELL_WIDTH + this.START_X; }
+    private int getY(int index) { return index * CELL_HEIGHT + this.START_Y; }
 }

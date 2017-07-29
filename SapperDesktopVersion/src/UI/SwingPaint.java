@@ -2,12 +2,8 @@ package UI;
 
 import UI.UIElements.GameTimer;
 import UI.UIElements.ImagesGetter;
+import UI.panels.*;
 import game.ActionField;
-import game.Cell;
-import UI.panels.GamePanel;
-import UI.panels.GamePanelListener;
-import UI.panels.PanelTop;
-import UI.panels.PanelTopListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,13 +24,13 @@ public class SwingPaint {
     }
 
     private static void setFrameSize(final int row, final int column) {
-        f.setSize(row * Cell.WIDTH + RIGHT_LEFT_PADDING,
-                column * Cell.HEIGHT + TOP_PADDING + BOTTOM_PADDING);
+        f.setSize(row * FieldPainter.CELL_WIDTH + RIGHT_LEFT_PADDING,
+                column * FieldPainter.CELL_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
     }
 
     private static void createPanels(final int row, final int column, final int counterBomb) {
         setFrameSize(row, column);
-        ActionField actionField = new ActionField(row, column, counterBomb);
+        ActionField actionField = new game.ActionField(row, column, counterBomb);
         GameTimer gameTimer = new GameTimer();
         PanelTopListener topListener = new PanelTopListener();
         GamePanelListener gpl = new GamePanelListener();

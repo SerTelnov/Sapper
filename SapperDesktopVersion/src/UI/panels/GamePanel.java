@@ -33,13 +33,10 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 if (!gameFinished) {
-                    int row = (e.getX() - fieldPainter.START_X) / Cell.WIDTH;
-                    int column = (e.getY() - fieldPainter.START_Y) / Cell.HEIGHT;
+                    int row = (e.getX() - fieldPainter.START_X) / FieldPainter.CELL_WIDTH;
+                    int column = (e.getY() - fieldPainter.START_Y) / FieldPainter.CELL_HEIGHT;
                     if (!actionField.isOutOfBounds(row, column)) {
                         if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
-//                            if (!actionField.isBuildField) {
-//                                actionField.setField(row, column);
-//                            }
                             actionField.openCell(row, column);
                             if (!gameFinished) {
                                 gamePanelListener.sayTouchField();

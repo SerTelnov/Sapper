@@ -1,5 +1,6 @@
 package UI.UIElements;
 
+import UI.panels.FieldPainter;
 import game.Cell;
 
 import javax.imageio.ImageIO;
@@ -13,8 +14,8 @@ import java.io.IOException;
  */
 
 public class ImagesGetter {
-    public static final int ICON_HEIGHT_SIZE = (int) (Cell.HEIGHT * 1.5);
-    public static final int ICON_WIDTH_SIZE = (int) (Cell.WIDTH * 1.5);
+    public static final int ICON_HEIGHT_SIZE = (int) (FieldPainter.CELL_HEIGHT * 1.5);
+    public static final int ICON_WIDTH_SIZE = (int) (FieldPainter.CELL_WIDTH * 1.5);
     private static class Images {
         public Images() {
             try {

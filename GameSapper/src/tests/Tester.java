@@ -1,4 +1,8 @@
-package game.tests;
+package tests;
+
+import tests.ActionFieldTest;
+import tests.CellTest;
+import tests.FieldTest;
 
 /**
  * Created by Sergey on 07.07.2017.
