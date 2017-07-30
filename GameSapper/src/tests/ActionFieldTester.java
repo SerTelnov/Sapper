@@ -1,6 +1,7 @@
 package tests;
 
 import game.ActionField;
+import game.Cell;
 import javafx.util.Pair;
 
 /**
@@ -9,16 +10,16 @@ import javafx.util.Pair;
 
 public class ActionFieldTester extends ActionField {
 
-    private Pair<Integer, Integer> bombLocation;
+    private Cell bombLocation;
 
     public ActionFieldTester(ActionFieldTestInfo testInfo) {
         super(testInfo.row, testInfo.column, 1);
-        this.bombLocation = new Pair<>(testInfo.bombLocation.row, testInfo.bombLocation.column);
+        this.bombLocation = getCell(testInfo.bombLocation.row, testInfo.bombLocation.column);
         openFirstCell(testInfo.startCellLocation.row, testInfo.startCellLocation.column);
     }
 
     @Override
-    protected Pair<Integer, Integer> getBombLocation(int bombIndex) {
+    protected Cell getBombLocation(int bombIndex) {
         return bombLocation;
     }
 }

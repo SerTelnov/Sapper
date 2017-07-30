@@ -1,5 +1,6 @@
 package tests;
 
+import game.Cell;
 import game.Field;
 import javafx.util.Pair;
 
@@ -10,15 +11,15 @@ import java.util.List;
  */
 
 public class FieldTester extends Field {
-    protected List<Pair<Integer, Integer>> bombs;
-    public FieldTester(int row, int column, List<Pair<Integer, Integer>> bombs) {
+    protected List<Cell> bombs;
+    public FieldTester(int row, int column, List<Cell> bombs) {
         super(row, column, bombs.size());
         this.bombs = bombs;
         this.createField();
     }
 
     @Override
-    protected Pair<Integer, Integer> getBombLocation(int bombIndex) {
+    protected Cell getBombLocation(int bombIndex) {
         return bombs.get(bombIndex);
     }
 }

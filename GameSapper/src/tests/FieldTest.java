@@ -63,7 +63,7 @@ public class FieldTest {
     }
 
     private void checkTest(final int row, final int column, final int[][] curTest) {
-        List<Pair<Integer, Integer>> bombs = getBombCoordinate(curTest);
+        List<Cell> bombs = getBombCoordinate(curTest);
         Field fl;
         try {
             fl = new FieldTester(row, column, bombs);
@@ -90,12 +90,12 @@ public class FieldTest {
         System.out.println("game.Field tests passed");
     }
 
-    private ArrayList<Pair<Integer, Integer>> getBombCoordinate(final int[][] curTest) {
-        ArrayList<Pair<Integer, Integer>> prs = new ArrayList<>();
+    private ArrayList<Cell> getBombCoordinate(final int[][] curTest) {
+        ArrayList<Cell> prs = new ArrayList<>();
         for (int i = 0; i != curTest.length; i++) {
             for (int j = 0; j != curTest[i].length; j++) {
                 if (curTest[i][j] == 9) {
-                    prs.add(new Pair<>(i, j));
+                    prs.add(new Cell(i, j));
                 }
             }
         }
@@ -126,33 +126,4 @@ public class FieldTest {
             {9, 2, 1, 9, 9}},
             {{9, 9, 9},
             {9, 5, 9}}};
-    // private final int[][] first = {
-    //         {9, 9, 9, 9},
-    //         {3, 9, 4, 2}};
-    // private final int[][] second = {
-    //         {9, 4, 9, 9},
-    //         {9, 9, 3, 2}};
-    // private final int[][] third = {
-    //         {9, 9, 9, 9, 9},
-    //         {9, 7, 6, 7, 9},
-    //         {9, 9, 9, 9, 9}};
-    // private final int[][] four = {
-    //         {0, 0, 0, 0, 0},
-    //         {1, 2, 3, 2, 1},
-    //         {2, 9, 9, 9, 2},
-    //         {2, 9, 9, 9, 2},
-    //         {1, 2, 3, 2, 1},
-    //         {0, 0, 0, 0, 0},
-    //         {0, 0, 0, 0, 0}};
-    // private final int[][] five = {
-    //         {9, 1, 0, 1, 9},
-    //         {1, 1, 0, 1, 1},
-    //         {1, 1, 1, 0, 0},
-    //         {2, 9, 1, 0, 0},
-    //         {9, 3, 1, 0, 0},
-    //         {9, 3, 1, 2, 2},
-    //         {9, 2, 1, 9, 9}};
-    // private final int[][] six = {
-    //         {9, 9, 9},
-    //         {9, 5, 9}};
 }

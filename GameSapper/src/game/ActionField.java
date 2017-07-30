@@ -1,7 +1,5 @@
 package game;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -84,14 +82,14 @@ public class ActionField extends Field implements IGame {
         }
     }
 
-    private HashSet<Pair<Integer, Integer>> getStartCells(final int row, final int column) {
-        HashSet<Pair<Integer, Integer>> startCells = new HashSet<>();
+    private HashSet<Cell> getStartCells(final int row, final int column) {
+        HashSet<Cell> startCells = new HashSet<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int curRow = row + i;
                 int curColumn = column + j;
                 if (!isOutOfBounds(curRow, curColumn)) {
-                    startCells.add(new Pair<>(curRow, curColumn));
+                    startCells.add(getCell(curRow, curColumn));
                 }
             }
         }
@@ -99,7 +97,7 @@ public class ActionField extends Field implements IGame {
     }
 
     protected void openFirstCell(final int row, final int column) {
-        HashSet<Pair<Integer, Integer>> startCells = getStartCells(row, column);
+        HashSet<Cell> startCells = getStartCells(row, column);
         createField(startCells);
     }
 

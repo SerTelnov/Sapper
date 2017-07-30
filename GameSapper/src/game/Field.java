@@ -1,6 +1,6 @@
 package game;
 
-import javafx.util.Pair;
+import tests.CellInfo;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class Field {
     protected Cell[][] field;
     protected final int row, column;
     protected boolean fieldCreated = false;
-    private List<Pair<Integer, Integer>> indexCells = new ArrayList<>();
+    private List<Cell> indexCells = new ArrayList<>();
 
     public Field(final int row, final int column, final int counterBomb) {
         assert row * column > counterBomb : "too many bombs";
@@ -66,15 +66,15 @@ public class Field {
         }
     }
 
-    protected Pair<Integer, Integer> getBombLocation(int bombIndex) {
+    protected Cell getBombLocation(int bombIndex) {
         return indexCells.get(bombIndex);
     }
 
     private void setBombs(int counterBomb) {
         while (counterBomb != 0) {
-            Pair<Integer, Integer> pr = getBombLocation(counterBomb - 1);
-            int i = pr.getKey();
-            int j = pr.getValue();
+            Cell pr = getBombLocation(counterBomb - 1);
+            int i = pr.row;
+            int j = pr.column;
             field[i][j].setBomb();
             incPoints(i, j);
             counterBomb--;
@@ -85,8 +85,9 @@ public class Field {
         field = new Cell[row][column];
         for (int i = 0; i != row; i++) {
             for (int j = 0; j != column; j++) {
-                field[i][j] = new Cell(i, j);
-                indexCells.add(new Pair<>(i, j));
+                Cell c = new Cell(i, j);
+                field[i][j] = c;
+                indexCells.add(c);
             }
         }
     }
@@ -99,9 +100,9 @@ public class Field {
         indexCells.clear();
     }
 
-    protected void createField(HashSet<Pair<Integer, Integer>> startCells) {
+    protected void createField(HashSet<Cell> startCells) {
         for (int i = indexCells.size() - 1; i >= 0; i--) {
-            Pair<Integer, Integer> cell = indexCells.get(i);
+            Cell cell = indexCells.get(i);
             if (startCells.contains(cell)) {
                 indexCells.remove(i);
             }
