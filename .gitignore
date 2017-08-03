@@ -16,7 +16,6 @@ GameSapper/.idea/*
 GameSapper/GameSapper.iml
 SapperAndroidApp/.gradle/*
 SapperAndroidApp/.idea/*
-SapperAndroidApp/build/*
 SapperAndroidApp/GameSapper/*
 SapperAndroidApp/gradle/*
 SapperAndroidApp/.gitignore/
@@ -26,7 +25,7 @@ SapperAndroidApp/gradlew
 SapperAndroidApp/gradlew.bat
 SapperAndroidApp/local.properties
 SapperAndroidApp/SapperAndroidApp.iml
-SapperAndroidApp/setting.gradle
+SapperAndroidApp/settings.gradle
 
 
 .gitignore
