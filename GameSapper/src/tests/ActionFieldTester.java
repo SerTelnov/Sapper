@@ -19,6 +19,9 @@ public class ActionFieldTester extends ActionField {
     }
 
     @Override
+    protected void setGameFinished() { }
+
+    @Override
     protected Cell getBombLocation(int bombIndex) {
         return bombLocation;
     }

@@ -11,10 +11,22 @@ SapperDesktopVersion/idea/*
 SapperDesktopVersion/SapperDesktopVersion.iml
 SapperDesktopVersion/src/META-INF/*
 SapperDesktopVersion/GameSapper/*
-SapperAndroidApp/*
 GameSapper/out/*
 GameSapper/.idea/*
 GameSapper/GameSapper.iml
+SapperAndroidApp/.gradle/*
+SapperAndroidApp/.idea/*
+SapperAndroidApp/build/*
+SapperAndroidApp/GameSapper/*
+SapperAndroidApp/gradle/*
+SapperAndroidApp/.gitignore/
+SapperAndroidApp/build.gradle
+SapperAndroidApp/gradle.properties
+SapperAndroidApp/gradlew
+SapperAndroidApp/gradlew.bat
+SapperAndroidApp/local.properties
+SapperAndroidApp/SapperAndroidApp.iml
+SapperAndroidApp/setting.gradle
 
 
 .gitignore

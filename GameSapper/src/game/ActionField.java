@@ -12,13 +12,14 @@ public class ActionField extends Field implements IGame {
     private List<IGameListener> listeners = new ArrayList<>();
     private int counterTagged = 0;
     private int counterCorrectTagged = 0;
+    private boolean gameFinished = false;
 
     public ActionField(final int row, final int column, final int counterBomb) {
         super(row, column, counterBomb);
     }
 
     public void openCell(final int row, final int column) {
-        if (isOutOfBounds(row, column)) return;
+        if (gameFinished || isOutOfBounds(row, column)) return;
         if (!fieldCreated) {
             openFirstCell(row, column);
         }
@@ -64,7 +65,10 @@ public class ActionField extends Field implements IGame {
         listeners.add(listener);
     }
 
+    protected void setGameFinished() { gameFinished = true; }
+
     private void sayGameOver(boolean isWin) {
+        setGameFinished();
         for (IGameListener listener : listeners) {
             listener.gameOver(isWin);
         }

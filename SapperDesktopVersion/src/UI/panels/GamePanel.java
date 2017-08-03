@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     public void gameOver(boolean isWin) {
         this.isWin = isWin;
         gameFinished = true;
-        repaint(0, 0, this.getWidth(), this.getHeight());
+        repaint();
     }
 
     @Override

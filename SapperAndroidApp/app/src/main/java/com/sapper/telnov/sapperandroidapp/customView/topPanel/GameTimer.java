@@ -1,11 +1,11 @@
-package UI.UIElements;
+package com.sapper.telnov.sapperandroidapp.customView.topPanel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Created by @author Telnov Sergey on 26.07.2017.
+ * Created by Sergey on 03.08.2017.
  */
 
 public class GameTimer {
@@ -32,4 +32,3 @@ public class GameTimer {
     private long startTime;
     private SimpleDateFormat timerFormat;
 }
-
