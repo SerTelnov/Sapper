@@ -51,14 +51,6 @@ public class RestartButton extends android.support.v7.widget.AppCompatImageButto
                 setSmileIcon();
             }
         });
-
-//        boredModeTimer = new Timer(false);
-//        boredModeTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                setSmileIcon();
-//            }
-//        };
     }
 
     private void setSmileIcon() {

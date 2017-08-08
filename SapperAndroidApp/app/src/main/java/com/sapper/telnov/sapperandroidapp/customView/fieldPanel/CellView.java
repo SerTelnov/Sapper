@@ -2,6 +2,7 @@ package com.sapper.telnov.sapperandroidapp.customView.fieldPanel;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.View;
 
 import com.sapper.telnov.sapperandroidapp.UI.CellColors;
@@ -42,7 +43,9 @@ public class CellView extends View {
                 } else {
                     cellSender.sayOpenCell(cell);
                 }
-                FieldSender.sayTouchField();
+                if (!cellSender.isGameFinished()) {
+                    FieldSender.sayTouchField();
+                }
             }
         });
     }
@@ -102,10 +105,17 @@ public class CellView extends View {
             drawNumber(canvas);
         } else if (cell.isBomb()) {
             drawBomb(canvas);
+        } else {
+            drawEmptyCell();
         }
     }
 
+    private void drawEmptyCell() {
+        this.setBackgroundColor(Color.LTGRAY);
+    }
+
     private void drawNumber(Canvas canvas) {
+        this.setBackgroundColor(Color.LTGRAY);
         canvas.drawText(Integer.valueOf(cell.getNumber()).toString(),
                 coordinate.x,
                 coordinate.y,

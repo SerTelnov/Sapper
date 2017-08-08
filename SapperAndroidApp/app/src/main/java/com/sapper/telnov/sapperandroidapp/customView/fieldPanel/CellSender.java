@@ -26,6 +26,7 @@ public class CellSender {
     public void restartCellSender() {
         isFlagMode = false;
         isWin = false;
+        gameFinished = false;
     }
 
     public void setGameOver(boolean isWin) {

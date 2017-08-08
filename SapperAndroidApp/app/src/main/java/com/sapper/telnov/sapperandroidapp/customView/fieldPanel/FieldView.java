@@ -54,7 +54,6 @@ public class FieldView extends ViewGroup implements IGameListener, ICellListener
         return false;
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int count = getChildCount();
