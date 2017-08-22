@@ -35,6 +35,8 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
         gameSetting.addSeparator();
 
+        beginner = menuItemFactory("Beginner");
+        difficultyLevel.add(beginner);
         easy = menuItemFactory("Easy");
         difficultyLevel.add(easy);
         normal = menuItemFactory("Normal");
@@ -58,21 +60,23 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
     private JMenuBar menuBar;
     private JMenu gameSetting;
     private JMenuItem difficultyLevel, startNewGame,
-            easy, normal, hard, intense;
+            easy, normal, hard, intense, beginner;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source.equals(easy)) {
-            SwingPaint.recreatePanels(9, 9, 15);
+            SwingPaint.recreatePanels(9, 9, 10);
         } else if (source.equals(normal)) {
             SwingPaint.recreatePanels(16, 16, 40);
         } else if (source.equals(hard)) {
             SwingPaint.recreatePanels(30, 16, 99);
         } else if (source.equals(intense)) {
             SwingPaint.recreatePanels(40, 17, 200);
+        } else if (source.equals(beginner)) {
+            SwingPaint.recreatePanels(5, 5, 5);
         } else if (source.equals(startNewGame)) {
-            SwingPaint.recreatePanels(9, 9, 15);
+            SwingPaint.recreatePanels(9, 9, 10);
         }
     }
 

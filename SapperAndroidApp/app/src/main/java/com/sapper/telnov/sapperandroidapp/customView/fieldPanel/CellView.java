@@ -59,19 +59,36 @@ public class CellView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (cellSender.isWin) {
-            drawOpenCell(canvas);
-        } else if (!cell.isOpened) {
-            drawCloseCell(canvas);
+        if (cellSender.isGameFinished()) {
+            drawFinishedGame(canvas);
         } else if (cell.isTagged) {
             drawTagged(canvas);
-        } else if (cellSender.isGameFinished() && cell.isBomb()) {
-            drawBomb(canvas);
-        }
-        else {
+        } else if (cell.isOpened) {
             drawOpenCell(canvas);
+        } else {
+            drawCloseCell(canvas);
         }
         drawRect(canvas);
+    }
+
+    private void drawFinishedGame(Canvas canvas) {
+        if (cell.isTagged) {
+            if (cell.isBomb()) {
+                drawDeActivateBomb(canvas);
+            } else {
+                drawFakeTagged(canvas);
+            }
+        } else if (cell.isBomb()) {
+            drawBomb(canvas);
+        } else if (cell.isOpened || cellSender.isWin) {
+            if (cell.isNumber()) {
+                drawNumber(canvas);
+            } else if (cell.isEmptyPoint()) {
+                drawEmptyCell();
+            }
+        } else {
+            drawCloseCell(canvas);
+        }
     }
 
     private void drawRect(Canvas canvas) {
@@ -103,8 +120,6 @@ public class CellView extends View {
     private void drawOpenCell(Canvas canvas) {
         if (cell.isNumber()) {
             drawNumber(canvas);
-        } else if (cell.isBomb()) {
-            drawBomb(canvas);
         } else {
             drawEmptyCell();
         }
@@ -122,23 +137,30 @@ public class CellView extends View {
                 CellColors.NUMBER_PAINT);
     }
 
+    private void drawDeActivateBomb(Canvas canvas) {
+        canvas.drawRect(coordinate.left, coordinate.top,
+                coordinate.right, coordinate.bottom,
+                CellColors.DE_ACTIVATE_BOMB_PAINT);
+    }
+
     private void drawBomb(Canvas canvas) {
-        if (cell.isTagged) {
-            canvas.drawRect(coordinate.left, coordinate.top,
-                    coordinate.right, coordinate.bottom,
-                    CellColors.DE_ACTIVATE_BOMB_PAINT);
-        } else {
-            canvas.drawRect(coordinate.left, coordinate.top,
-                    coordinate.right, coordinate.bottom,
-                    CellColors.BOMB_PAINT);
-        }
+        canvas.drawRect(coordinate.left, coordinate.top,
+                coordinate.right, coordinate.bottom,
+                CellColors.BOMB_PAINT);
+    }
+
+    private void drawFakeTagged(Canvas canvas) {
+        canvas.drawRect(
+            coordinate.left, coordinate.top,
+            coordinate.right, coordinate.bottom,
+            CellColors.FAKE_TAGGED_PAINT);
     }
 
     private void drawTagged(Canvas canvas) {
         canvas.drawRect(
-                coordinate.left, coordinate.top,
-                coordinate.right, coordinate.bottom,
-                CellColors.TAGGED_PAINT);
+            coordinate.left, coordinate.top,
+            coordinate.right, coordinate.bottom,
+            CellColors.TAGGED_PAINT);
     }
 
     private class CellCoordinate {

@@ -56,7 +56,7 @@ public class SwingPaint {
         f.validate();
         f.setLayout(new BorderLayout());
         f.setResizable( false );
-        createPanels(9, 9, 15);
+        createPanels(9, 9, 10);
 
         f.setIconImage(ImagesGetter.GAME_ICON);
         f.setVisible(true);

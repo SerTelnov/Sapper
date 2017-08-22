@@ -162,7 +162,7 @@ public class ActionField extends Field implements IGame {
             for (int j = -1; j <= 1; j++) {
                 int curRow = cell.row + i;
                 int curColumn = cell.column + j;
-                if ((i == 0 && j == 0) || isOutOfBounds(curRow, curColumn))
+                if (isOutOfBounds(curRow, curColumn))
                     continue;
                 Cell curCell = getCell(curRow, curColumn);
                 if (curCell.isOpened)
