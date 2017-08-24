@@ -16,7 +16,6 @@ public class CellColors {
         public Paint numberPaint;
         public Paint taggedPaint;
         public Paint deActivateBombPaint;
-        public Paint fakeTaggedPaint;
 
         public final int CLOSE_CELL_COLOR = Color.parseColor("#2979FF");
 
@@ -35,8 +34,6 @@ public class CellColors {
             taggedPaint.setColor(Color.YELLOW);
             deActivateBombPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             deActivateBombPaint.setColor(Color.GREEN);
-            fakeTaggedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            fakeTaggedPaint.setColor(Color.BLUE);
         }
     }
 
@@ -48,7 +45,6 @@ public class CellColors {
     public static final Paint NUMBER_PAINT = colors.numberPaint;
     public static final Paint TAGGED_PAINT = colors.taggedPaint;
     public static final Paint DE_ACTIVATE_BOMB_PAINT = colors.deActivateBombPaint;
-    public static final Paint FAKE_TAGGED_PAINT = colors.fakeTaggedPaint;
     public static final int CELL_WIDTH = 65;
     public static final int CELL_HEIGHT = 65;
 }

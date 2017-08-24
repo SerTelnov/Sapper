@@ -5,45 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sapper.telnov.sapperandroidapp.MainActivity"
-    android:orientation="vertical"
-    android:background="@android:color/darker_gray">
+    android:orientation="vertical">
     <LinearLayout
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFEB3B"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.sapper.telnov.sapperandroidapp.customView.topPanel.FlagModeView
             android:id="@+id/flag_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center" />
 
         <com.sapper.telnov.sapperandroidapp.customView.topPanel.RestartButton
             android:id="@+id/smile_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center" />
 
         <LinearLayout
             android:id="@+id/game_info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
             <com.sapper.telnov.sapperandroidapp.customView.topPanel.ScoreView
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:layout_weight="1"
                 android:gravity="center" />
-            <com.sapper.telnov.sapperandroidapp.customView.topPanel.TimerView
+            <TextView
                 android:id="@+id/timer"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:text="timer"
                 android:textSize="20sp"
                 android:gravity="center"/>
         </LinearLayout>
@@ -52,6 +56,7 @@
     <com.sapper.telnov.sapperandroidapp.customView.fieldPanel.FieldView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
         android:layout_margin="10dp"
         android:gravity="center" />
 </LinearLayout>

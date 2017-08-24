@@ -7,8 +7,9 @@ import java.util.Scanner;
  */
 
 
+///// coming soon
+
 public class LeaderBoard {
     public LeaderBoard() {
-
     }
 }
