@@ -2,6 +2,7 @@ package UI;
 
 import UI.UIElements.GameTimer;
 import UI.UIElements.ImagesGetter;
+import UI.UIElements.LevelDifficulty;
 import UI.panels.*;
 import game.ActionField;
 
@@ -13,11 +14,11 @@ import java.awt.*;
  */
 
 public class SwingPaint {
-
     public static final int RIGHT_LEFT_PADDING = 68 * 2;
     public static final int TOP_PADDING = 160;
     public static final int BOTTOM_PADDING = 20;
     private static PanelTop panelTop;
+    private static LevelDifficulty levelDifficulty;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(SwingPaint::createAndShowGUI);
@@ -28,9 +29,10 @@ public class SwingPaint {
                 column * FieldPainter.CELL_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
     }
 
-    private static void createPanels(final int row, final int column, final int counterBomb) {
-        setFrameSize(row, column);
-        ActionField actionField = new game.ActionField(row, column, counterBomb);
+    private static void createPanels(LevelDifficulty curLevel) {
+        setFrameSize(9, 9);
+        levelDifficulty = curLevel;
+        ActionField actionField = new game.ActionField(9, 9, 10);
         GameTimer gameTimer = new GameTimer();
         PanelTopListener topListener = new PanelTopListener();
         GamePanelListener gpl = new GamePanelListener();
@@ -40,10 +42,28 @@ public class SwingPaint {
         f.add(gamePanel, BorderLayout.CENTER);
     }
 
-    public static void recreatePanels(final int row, final int column, final int counterBomb) {
-        ActionField actionField = new ActionField(row, column, counterBomb);
+    private static ActionField chooseActionField(LevelDifficulty curLevel) {
+        switch (curLevel) {
+            case BEGINNER:
+                return new ActionField(5, 5, 5);
+            case EASY:
+                return new ActionField(9, 9, 10);
+            case NORMAL:
+                return new ActionField(16, 16, 50);
+            case HARD:
+                return new ActionField(30, 16, 99);
+            case INTENSE:
+                return new ActionField(40, 17, 200);
+            default:
+                return chooseActionField(levelDifficulty);
+        }
+    }
+
+    public static void recreatePanels(LevelDifficulty newLevel) {
+        ActionField actionField = chooseActionField(newLevel);
+        levelDifficulty = newLevel;
         panelTop.recreatePanel(actionField);
-        setFrameSize(row, column);
+        setFrameSize(actionField.getRow(), actionField.getColumn());
     }
 
     private static JFrame f;
@@ -56,8 +76,7 @@ public class SwingPaint {
         f.validate();
         f.setLayout(new BorderLayout());
         f.setResizable( false );
-        createPanels(9, 9, 15);
-
+        createPanels(LevelDifficulty.EASY);
         f.setIconImage(ImagesGetter.GAME_ICON);
         f.setVisible(true);
     }

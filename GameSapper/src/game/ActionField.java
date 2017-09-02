@@ -22,6 +22,7 @@ public class ActionField extends Field implements IGame {
         if (gameFinished || isOutOfBounds(row, column)) return;
         if (!fieldCreated) {
             openFirstCell(row, column);
+            sayGameStart();
         }
         Cell cell = this.getCell(row, column);
         if (cell.isOpened) {
@@ -83,6 +84,12 @@ public class ActionField extends Field implements IGame {
     private void sayScoreChange() {
         for (IGameListener listener : listeners) {
             listener.scoreChange(counterTagged);
+        }
+    }
+
+    private void sayGameStart() {
+        for (IGameListener listener : listeners) {
+            listener.gameStart();
         }
     }
 

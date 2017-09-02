@@ -109,4 +109,9 @@ public class ActionFieldTest implements IGameListener {
     public void scoreChange(final int score) {
         setFlagCounter++;
     }
+
+    @Override
+    public void gameStart() {
+
+    }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 interface IGamePanelListener {
     void touchField();
+    void gameStart();
 }
 
 public class GamePanelListener {
@@ -21,6 +22,12 @@ public class GamePanelListener {
     public void sayTouchField() {
         for (IGamePanelListener listener : listeners) {
             listener.touchField();
+        }
+    }
+
+    public void sayGameStart() {
+        for (IGamePanelListener listener : listeners) {
+            listener.gameStart();
         }
     }
 }

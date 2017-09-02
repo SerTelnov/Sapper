@@ -86,6 +86,9 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     }
 
     @Override
+    public void gameStart() { }
+
+    @Override
     public void restartGame(ActionField newActionField) {
         createGame(newActionField);
         repaint();

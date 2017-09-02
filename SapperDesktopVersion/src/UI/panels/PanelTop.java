@@ -106,6 +106,10 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         restartButton.setBoredIcon();
     }
 
+    @Override
+    public void gameStart() {
+        this.scorePanel.startTime();
+    }
 
     private class GameInfo {
         public final int ROW, COLUMN, COUNTER_BOMB;

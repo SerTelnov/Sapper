@@ -17,10 +17,20 @@ public class GameTimer {
     }
 
     public long getCurrentTime() {
+        if (startTime < 0) {
+            return 0;
+        }
         return System.currentTimeMillis() - startTime;
     }
 
+    public void setZeroTime() {
+        this.startTime = -1;
+    }
+
     public String getCurrentTimeText() {
+        if (this.startTime < 0) {
+            return ZERO_TIME;
+        }
         long curTime = System.currentTimeMillis() - startTime;
         return timerFormat.format(new Date(curTime));
     }
@@ -30,6 +40,7 @@ public class GameTimer {
     }
 
     private long startTime;
+    private final String ZERO_TIME = "00:00:00";
     private SimpleDateFormat timerFormat;
 }
 

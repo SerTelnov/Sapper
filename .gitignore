@@ -7,6 +7,7 @@ ehthumbs.db
 Desktop.ini
 SapperDesktopVersion/.idea/*
 SapperDesktopVersion/out/*
+SapperDesktopVersion/lib/*
 SapperDesktopVersion/idea/*
 SapperDesktopVersion/SapperDesktopVersion.iml
 SapperDesktopVersion/src/META-INF/*

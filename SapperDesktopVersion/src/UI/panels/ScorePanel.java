@@ -48,6 +48,13 @@ public class ScorePanel extends JPanel {
         gameFinished = false;
         score.setText(SCORE_TEXT + "0/" + counterBomb);
 
+        gameTimer.setZeroTime();
+
+        clock.setInitialDelay(0);
+        clock.start();
+    }
+
+    public void startTime() {
         gameTimer.setNewTimer();
 
         clock.setInitialDelay(0);

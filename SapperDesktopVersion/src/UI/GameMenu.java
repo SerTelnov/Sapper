@@ -1,5 +1,7 @@
 package UI;
 
+import UI.UIElements.LevelDifficulty;
+
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -16,7 +18,6 @@ import java.awt.event.KeyListener;
 public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
     public JMenuBar createMenuBar() {
-
         Font font = new Font("sans-serif", Font.PLAIN, 20);
         UIManager.put("MenuBar.font", font);
         UIManager.put("Menu.font", font);
@@ -28,13 +29,14 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         gameSetting.setMnemonic(KeyEvent.VK_A);
         menuBar.add(gameSetting);
 
-        startNewGame = menuItemFactory("new game");
+        startNewGame = menuItemFactory("New game");
         gameSetting.add(startNewGame);
 
-        difficultyLevel = new JMenu("level difficulty");
-
+        difficultyLevel = new JMenu("Level difficulty");
         gameSetting.addSeparator();
 
+        beginner = menuItemFactory("Beginner");
+        difficultyLevel.add(beginner);
         easy = menuItemFactory("Easy");
         difficultyLevel.add(easy);
         normal = menuItemFactory("Normal");
@@ -44,6 +46,9 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         intense = menuItemFactory("Intense");
         difficultyLevel.add(intense);
         gameSetting.add(difficultyLevel);
+        gameSetting.addSeparator();
+        exitButton = new JMenuItem("Exit");
+        gameSetting.add(exitButton);
         return menuBar;
     }
 
@@ -56,23 +61,27 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
     }
 
     private JMenuBar menuBar;
-    private JMenu gameSetting;
-    private JMenuItem difficultyLevel, startNewGame,
-            easy, normal, hard, intense;
+    private JMenu gameSetting, difficultyLevel;
+    private JMenuItem startNewGame, exitButton,
+        beginner, easy, normal, hard, intense;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (source.equals(easy)) {
-            SwingPaint.recreatePanels(9, 9, 15);
+        if (source.equals(beginner)) {
+            SwingPaint.recreatePanels(LevelDifficulty.BEGINNER);
+        } else if (source.equals(easy)) {
+            SwingPaint.recreatePanels(LevelDifficulty.EASY);
         } else if (source.equals(normal)) {
-            SwingPaint.recreatePanels(16, 16, 40);
+            SwingPaint.recreatePanels(LevelDifficulty.NORMAL);
         } else if (source.equals(hard)) {
-            SwingPaint.recreatePanels(30, 16, 99);
+            SwingPaint.recreatePanels(LevelDifficulty.HARD);
         } else if (source.equals(intense)) {
-            SwingPaint.recreatePanels(40, 17, 200);
+            SwingPaint.recreatePanels(LevelDifficulty.INTENSE);
         } else if (source.equals(startNewGame)) {
-            SwingPaint.recreatePanels(9, 9, 15);
+            SwingPaint.recreatePanels(LevelDifficulty.NO_LEVEL);
+        } else if (source.equals(exitButton)) {
+            System.exit(0);
         }
     }
 

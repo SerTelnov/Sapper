@@ -8,4 +8,5 @@ public interface IGameListener {
     void cellChange(Cell c);
     void gameOver(boolean isWin);
     void scoreChange(final int counter);
+    void gameStart();
 }
