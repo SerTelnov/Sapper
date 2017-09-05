@@ -2,6 +2,7 @@ package UI.panels;
 
 import UI.UIElements.GameTimer;
 import UI.UIElements.ImagesGetter;
+import UI.UIElements.LeaderBoard;
 import game.ActionField;
 import game.Cell;
 import game.IGameListener;
@@ -23,7 +24,8 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
     private JButton flagModeButton;
     private GamePanelListener gamePanelListener;
 
-    public PanelTop(ActionField actionField, PanelTopListener topListener, GamePanelListener gamePanelListener, GameTimer gameTimer) {
+    public PanelTop(ActionField actionField, PanelTopListener topListener,
+                    GamePanelListener gamePanelListener, GameTimer gameTimer, LeaderBoard leaderBoard) {
         this.setFont(GamePanel.font);
         this.setBackground(Color.GRAY);
         this.topListener = topListener;
@@ -39,7 +41,7 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         ActionListener flagModeListener = e -> changeSetFlagMode();
         flagModeButton.addActionListener(flagModeListener);
 
-        scorePanel = new ScorePanel(actionField.getCounterBomb(), gameTimer);
+        scorePanel = new ScorePanel(actionField.getCounterBomb(), gameTimer, leaderBoard);
         add(scorePanel, BorderLayout.LINE_END);
         createPanel(actionField);
     }
@@ -74,7 +76,7 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
         if (!isWin) {
             restartButton.setSadIcon();
         }
-        scorePanel.stopTime();
+        scorePanel.stopTime(isWin);
     }
 
     @Override

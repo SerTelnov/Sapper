@@ -1,5 +1,7 @@
-package UI;
+package UI.menu;
 
+import UI.SwingPaint;
+import UI.UIElements.LeaderBoard;
 import UI.UIElements.LevelDifficulty;
 
 import javax.swing.*;
@@ -16,6 +18,9 @@ import java.awt.event.KeyListener;
  */
 
 public class GameMenu implements MenuListener, ActionListener, KeyListener {
+    public GameMenu(LeaderBoard leaderBoard) {
+        this.leaderBoard = leaderBoard;
+    }
 
     public JMenuBar createMenuBar() {
         Font font = new Font("sans-serif", Font.PLAIN, 20);
@@ -46,7 +51,9 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         intense = menuItemFactory("Intense");
         difficultyLevel.add(intense);
         gameSetting.add(difficultyLevel);
+        gameSetting.add(new ScoresMenu(this.leaderBoard));
         gameSetting.addSeparator();
+
         exitButton = new JMenuItem("Exit");
         gameSetting.add(exitButton);
         return menuBar;
@@ -64,6 +71,8 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
     private JMenu gameSetting, difficultyLevel;
     private JMenuItem startNewGame, exitButton,
         beginner, easy, normal, hard, intense;
+    private LeaderBoard leaderBoard;
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

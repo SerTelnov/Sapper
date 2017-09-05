@@ -1,10 +1,13 @@
 package UI.panels;
 
+import UI.SwingPaint;
 import UI.UIElements.GameTimer;
+import UI.UIElements.LeaderBoard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Created by Sergey on 18.07.2017.
@@ -19,8 +22,15 @@ public class ScorePanel extends JPanel {
     private boolean gameFinished;
     private int counterBomb;
     private GameTimer gameTimer;
+    private ArrayList<IScorePanelListener> listeners = new ArrayList<>();
 
-    public ScorePanel(final int counterBomb, GameTimer gameTimer) {
+    public void addListener(IScorePanelListener listener) {
+        listeners.add(listener);
+    }
+
+    public ScorePanel(final int counterBomb, GameTimer gameTimer, LeaderBoard leaderBoard) {
+        this.addListener(leaderBoard);
+
         this.gameTimer = gameTimer;
         this.counterBomb = counterBomb;
         this.setBackground(Color.GRAY);
@@ -54,6 +64,12 @@ public class ScorePanel extends JPanel {
         clock.start();
     }
 
+    private void sayNewScore() {
+        for (IScorePanelListener listener: listeners) {
+            listener.newScore(gameTimer.getCurrentTime(), SwingPaint.getCurrentLevel());
+        }
+    }
+
     public void startTime() {
         gameTimer.setNewTimer();
 
@@ -66,8 +82,12 @@ public class ScorePanel extends JPanel {
         createPanel();
     }
 
-    public void stopTime() {
+    public void stopTime(boolean isWin) {
+        gameTimer.stopTime();
         gameFinished = true;
+        if (isWin) {
+            sayNewScore();
+        }
     }
 
     public void scoreChange(int score) {

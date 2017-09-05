@@ -2,7 +2,9 @@ package UI;
 
 import UI.UIElements.GameTimer;
 import UI.UIElements.ImagesGetter;
+import UI.UIElements.LeaderBoard;
 import UI.UIElements.LevelDifficulty;
+import UI.menu.GameMenu;
 import UI.panels.*;
 import game.ActionField;
 
@@ -24,19 +26,21 @@ public class SwingPaint {
         SwingUtilities.invokeLater(SwingPaint::createAndShowGUI);
     }
 
+    public static LevelDifficulty getCurrentLevel() { return levelDifficulty; }
+
     private static void setFrameSize(final int row, final int column) {
         f.setSize(row * FieldPainter.CELL_WIDTH + RIGHT_LEFT_PADDING,
                 column * FieldPainter.CELL_HEIGHT + TOP_PADDING + BOTTOM_PADDING);
     }
 
-    private static void createPanels(LevelDifficulty curLevel) {
+    private static void createPanels(LevelDifficulty curLevel, LeaderBoard leaderBoard) {
         setFrameSize(9, 9);
         levelDifficulty = curLevel;
         ActionField actionField = new game.ActionField(9, 9, 10);
         GameTimer gameTimer = new GameTimer();
         PanelTopListener topListener = new PanelTopListener();
         GamePanelListener gpl = new GamePanelListener();
-        panelTop = new PanelTop(actionField, topListener, gpl, gameTimer);
+        panelTop = new PanelTop(actionField, topListener, gpl, gameTimer, leaderBoard);
         GamePanel gamePanel = new GamePanel(actionField, topListener, gpl);
         f.add(panelTop, BorderLayout.PAGE_START);
         f.add(gamePanel, BorderLayout.CENTER);
@@ -71,14 +75,14 @@ public class SwingPaint {
     private static void createAndShowGUI() {
         f = new JFrame("Sapper");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GameMenu menu = new GameMenu();
+        LeaderBoard leaderBoard = new LeaderBoard();
+        GameMenu menu = new GameMenu(leaderBoard);
         f.setJMenuBar(menu.createMenuBar());
         f.validate();
         f.setLayout(new BorderLayout());
         f.setResizable( false );
-        createPanels(LevelDifficulty.EASY);
+        createPanels(LevelDifficulty.EASY, leaderBoard);
         f.setIconImage(ImagesGetter.GAME_ICON);
         f.setVisible(true);
     }
 }
-
