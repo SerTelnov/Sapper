@@ -54,7 +54,8 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         gameSetting.add(new ScoresMenu(this.leaderBoard));
         gameSetting.addSeparator();
 
-        exitButton = new JMenuItem("Exit");
+        exitButton = menuItemFactory("Exit");
+//        exitButton = new JMenuItem("Exit");
         gameSetting.add(exitButton);
         return menuBar;
     }
