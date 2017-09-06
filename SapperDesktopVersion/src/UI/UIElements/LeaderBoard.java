@@ -1,47 +1,43 @@
 package UI.UIElements;
 
 import UI.panels.IScorePanelListener;
-import UI.panels.ScorePanel;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
  * Created by @author Telnov Sergey on 26.07.2017.
  */
 
-///// coming soon
-
 public class LeaderBoard implements IScorePanelListener {
+
     private ArrayList<ILeaderBoardListener> listeners = new ArrayList<>();
-    private long beginnerLevelScore = Long.MAX_VALUE;
-    private long easyLevelScore = Long.MAX_VALUE;
-    private long normalLevelScore = Long.MAX_VALUE;
-    private long hardLevelScore = Long.MAX_VALUE;
-    private long intenseLevelScore = Long.MAX_VALUE;
-    private File scoresFile;
-    private FileOutputStream outputScoreFile;
+    private long beginnerLevelScore;
+    private long easyLevelScore;
+    private long normalLevelScore;
+    private long hardLevelScore;
+    private long intenseLevelScore;
 
     public LeaderBoard() {
-        scoresFile = new File("scores.txt");
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream inputScoresStream = classloader.getResourceAsStream("scores.txt");
         try {
-            Scanner input = new Scanner(scoresFile);
+            Scanner input = new Scanner(inputScoresStream);
             beginnerLevelScore = getScore(input.nextLong());
             easyLevelScore = getScore(input.nextLong());
             normalLevelScore = getScore(input.nextLong());
             hardLevelScore = getScore(input.nextLong());
             intenseLevelScore = getScore(input.nextLong());
-
-            outputScoreFile = new FileOutputStream(scoresFile);
-            printScore();
-        } catch (IOException e) {
+        } catch (NoSuchElementException e) {
             beginnerLevelScore = Long.MAX_VALUE;
             easyLevelScore = Long.MAX_VALUE;
             normalLevelScore = Long.MAX_VALUE;
             hardLevelScore = Long.MAX_VALUE;
             intenseLevelScore = Long.MAX_VALUE;
         }
+        printScore();
     }
 
     private long getScore(long score) {
@@ -97,16 +93,33 @@ public class LeaderBoard implements IScorePanelListener {
     }
 
     private void printScore() {
-        try(PrintWriter pw = new PrintWriter(outputScoreFile)) {
-            outputScoreFile = new FileOutputStream(scoresFile);
-            pw.println(beginnerLevelScore);
-            pw.println(easyLevelScore);
-            pw.println(normalLevelScore);
-            pw.println(hardLevelScore);
-            pw.println(intenseLevelScore);
-        } catch (IOException e) {
 
-        }
+//        try (OutputStream outputStream = new FileOutputStream("scores.txt")) {
+//            PrintWriter pw = new PrintWriter(outputStream);
+//            pw.println(beginnerLevelScore);
+//            pw.println(easyLevelScore);
+//            pw.println(normalLevelScore);
+//            pw.println(hardLevelScore);
+//            pw.println(intenseLevelScore);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        FileOutputStream outputStream = null;
+//        try {
+//            outputStream = new FileOutputStream("scores.txt");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try (PrintWriter pw = new PrintWriter(outputStream)) {
+//            pw.println(beginnerLevelScore);
+//            pw.println(easyLevelScore);
+//            pw.println(normalLevelScore);
+//            pw.println(hardLevelScore);
+//            pw.println(intenseLevelScore);
+//        } catch (NullPointerException e) {
+//
+//        }
     }
 
     public String getBeginnerLevelResult() {
