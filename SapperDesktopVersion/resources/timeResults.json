@@ -1,5 +1,6 @@
 {
   "results" : [
+    {"type": "beginner", "time": 2305},
     {"type": "easy", "time": 2305},
     {"type": "normal", "time": 4000},
     {"type": "hard", "time": 5000},

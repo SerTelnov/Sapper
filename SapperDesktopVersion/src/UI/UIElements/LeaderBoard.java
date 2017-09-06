@@ -3,7 +3,9 @@ package UI.UIElements;
 import UI.panels.IScorePanelListener;
 import UI.panels.ScorePanel;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by @author Telnov Sergey on 26.07.2017.
@@ -18,6 +20,36 @@ public class LeaderBoard implements IScorePanelListener {
     private long normalLevelScore = Long.MAX_VALUE;
     private long hardLevelScore = Long.MAX_VALUE;
     private long intenseLevelScore = Long.MAX_VALUE;
+    private File scoresFile;
+    private FileOutputStream outputScoreFile;
+
+    public LeaderBoard() {
+        scoresFile = new File("scores.txt");
+        try {
+            Scanner input = new Scanner(scoresFile);
+            beginnerLevelScore = getScore(input.nextLong());
+            easyLevelScore = getScore(input.nextLong());
+            normalLevelScore = getScore(input.nextLong());
+            hardLevelScore = getScore(input.nextLong());
+            intenseLevelScore = getScore(input.nextLong());
+
+            outputScoreFile = new FileOutputStream(scoresFile);
+            printScore();
+        } catch (IOException e) {
+            beginnerLevelScore = Long.MAX_VALUE;
+            easyLevelScore = Long.MAX_VALUE;
+            normalLevelScore = Long.MAX_VALUE;
+            hardLevelScore = Long.MAX_VALUE;
+            intenseLevelScore = Long.MAX_VALUE;
+        }
+    }
+
+    private long getScore(long score) {
+        if (score == -1) {
+            return Long.MAX_VALUE;
+        }
+        return score;
+    }
 
     public void addListener(ILeaderBoardListener listener) {
         listeners.add(listener);
@@ -59,7 +91,21 @@ public class LeaderBoard implements IScorePanelListener {
                 break;
         }
         if (scoreChanged) {
+            printScore();
             sayScoreChanged(score, levelDifficulty);
+        }
+    }
+
+    private void printScore() {
+        try(PrintWriter pw = new PrintWriter(outputScoreFile)) {
+            outputScoreFile = new FileOutputStream(scoresFile);
+            pw.println(beginnerLevelScore);
+            pw.println(easyLevelScore);
+            pw.println(normalLevelScore);
+            pw.println(hardLevelScore);
+            pw.println(intenseLevelScore);
+        } catch (IOException e) {
+
         }
     }
 
