@@ -94,32 +94,6 @@ public class LeaderBoard implements IScorePanelListener {
 
     private void printScore() {
 
-//        try (OutputStream outputStream = new FileOutputStream("scores.txt")) {
-//            PrintWriter pw = new PrintWriter(outputStream);
-//            pw.println(beginnerLevelScore);
-//            pw.println(easyLevelScore);
-//            pw.println(normalLevelScore);
-//            pw.println(hardLevelScore);
-//            pw.println(intenseLevelScore);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        FileOutputStream outputStream = null;
-//        try {
-//            outputStream = new FileOutputStream("scores.txt");
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try (PrintWriter pw = new PrintWriter(outputStream)) {
-//            pw.println(beginnerLevelScore);
-//            pw.println(easyLevelScore);
-//            pw.println(normalLevelScore);
-//            pw.println(hardLevelScore);
-//            pw.println(intenseLevelScore);
-//        } catch (NullPointerException e) {
-//
-//        }
     }
 
     public String getBeginnerLevelResult() {

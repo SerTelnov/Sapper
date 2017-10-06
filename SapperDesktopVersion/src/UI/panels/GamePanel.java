@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.*;
 
 /**
  * Created by Sergey on 10.07.2017.
@@ -35,15 +36,13 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
                 if (!gameFinished) {
                     int row = (e.getX() - fieldPainter.START_X) / FieldPainter.CELL_WIDTH;
                     int column = (e.getY() - fieldPainter.START_Y) / FieldPainter.CELL_HEIGHT;
-                    if (!actionField.isOutOfBounds(row, column)) {
-                        if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
-                            actionField.openCell(row, column);
-                            if (!gameFinished) {
-                                gamePanelListener.sayTouchField();
-                            }
-                        } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
-                            actionField.putTagged(row, column);
+                    if (SwingUtilities.isLeftMouseButton(e) && !isSetFlagMode) {
+                        actionField.openCell(row, column);
+                        if (!gameFinished) {
+                            gamePanelListener.sayTouchField();
                         }
+                    } else if (isSetFlagMode || SwingUtilities.isRightMouseButton(e)) {
+                        actionField.putTagged(row, column);
                     }
                 }
             }
@@ -70,7 +69,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     }
 
     @Override
-    public void cellChange(Cell c) {
+    public void cellsChanged(java.util.List<Cell> cells) {
         repaint();
     }
 
@@ -82,8 +81,7 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     }
 
     @Override
-    public void scoreChange(final int score) {
-    }
+    public void scoreChange(final int score) { }
 
     @Override
     public void gameStart() { }

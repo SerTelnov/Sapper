@@ -10,6 +10,7 @@ import game.IGameListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.*;
 
 /**
  * Created by Sergey on 16.07.2017.
@@ -69,7 +70,7 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
     }
 
     @Override
-    public void cellChange(Cell c) {}
+    public void cellsChanged(java.util.List<Cell> cells) {}
 
     @Override
     public void gameOver(boolean isWin) {

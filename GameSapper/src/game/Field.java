@@ -34,6 +34,8 @@ public class Field {
     public int getCounterBomb() { return counterBomb; }
     public int getNumber(final int row, final int column) { return field[row][column].getNumber(); }
     public boolean isBomb(final int row, final int column) { return field[row][column].isBomb(); }
+    public boolean isEmpty(final int row, final int column) { return field[row][column].isEmptyPoint(); }
+
 
     public boolean isOutOfBounds(final int row, final int column) {
         return row < 0 || column < 0 ||

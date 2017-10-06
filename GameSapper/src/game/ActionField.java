@@ -13,6 +13,7 @@ public class ActionField extends Field implements IGame {
     private int counterTagged = 0;
     private int counterCorrectTagged = 0;
     private boolean gameFinished = false;
+    private List<Cell> currChangedCells = new ArrayList<>();
 
     public ActionField(final int row, final int column, final int counterBomb) {
         super(row, column, counterBomb);
@@ -32,12 +33,11 @@ public class ActionField extends Field implements IGame {
         } else if (cell.isBomb()) {
             openBombCell(cell);
         } else if (cell.isNumber()) {
-            openNumberCell(cell);
-            sayCellChange(cell);
+            openCell(cell);
         } else if (cell.isEmptyPoint()) {
-            openEmptyCell(cell);
-            sayCellChange(cell);
+            openEmptyCells(cell);
         }
+        sayCellsChanged();
     }
 
     public void putTagged(final int row, final int column) {
@@ -51,6 +51,9 @@ public class ActionField extends Field implements IGame {
             add = -1;
             removeTagged(cell.row, cell.column);
         }
+
+        this.currChangedCells.add(cell);
+
         counterTagged += add;
         if (cell.isBomb())
             counterCorrectTagged += add;
@@ -59,7 +62,7 @@ public class ActionField extends Field implements IGame {
             sayGameOver(true);
         }
         sayScoreChange();
-        sayCellChange(cell);
+        sayCellsChanged();
     }
 
     public void addListener (IGameListener listener) {
@@ -75,10 +78,13 @@ public class ActionField extends Field implements IGame {
         }
     }
 
-    private void sayCellChange(Cell c) {
+    private void sayCellsChanged() {
+        if (currChangedCells.isEmpty())
+            return;
         for (IGameListener listener : listeners) {
-            listener.cellChange(c);
+            listener.cellsChanged(currChangedCells);
         }
+        currChangedCells.clear();
     }
 
     private void sayScoreChange() {
@@ -141,7 +147,6 @@ public class ActionField extends Field implements IGame {
 
     private void openAdjacentCells(Cell cell) {
         if (!isCorrectFlagsCounter(cell)) return;
-        boolean cellChanged = false;
         for (int rowIndex = -1; rowIndex <= 1; rowIndex++) {
             for (int columnIndex = -1; columnIndex <= 1; columnIndex++) {
                 int curRow = cell.row + rowIndex;
@@ -151,16 +156,12 @@ public class ActionField extends Field implements IGame {
                 Cell cur = getCell(curRow, curColumn);
                 if (cur.isOpened)
                     continue;
-                cellChanged = true;
                 if (cur.isEmptyPoint()) {
-                    openEmptyCell(cur);
+                    openEmptyCells(cur);
                 } else if (cur.isNumber()) {
-                    openNumberCell(cur);
+                    openCell(cur);
                 }
             }
-        }
-        if (cellChanged) {
-            sayCellChange(cell);
         }
     }
 
@@ -174,27 +175,21 @@ public class ActionField extends Field implements IGame {
                 Cell curCell = getCell(curRow, curColumn);
                 if (curCell.isOpened)
                     continue;
-                curCell.openCell();
+                openCell(curCell);
                 if (curCell.isEmptyPoint()) {
-                    openEmptyCell(curCell);
-                } else if (curCell.isNumber()) {
-                    openNumberCell(curCell);
+                    openEmptyCells(curCell);
                 }
             }
         }
     }
 
-    private void openEmptyCell(Cell cell) {
-        openEmptyCells(cell);
-    }
-
-    private void openNumberCell(Cell cell) {
+    private void openCell(Cell cell) {
+        this.currChangedCells.add(cell);
         cell.openCell();
     }
 
     private void openBombCell(Cell cell) {
-        cell.openCell();
+        openCell(cell);
         sayGameOver(false);
     }
-
 }

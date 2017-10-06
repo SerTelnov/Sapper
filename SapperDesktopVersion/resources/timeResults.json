@@ -1,10 +1,10 @@
 {
   "results" : [
-    {"type": "beginner", "time": 2305},
-    {"type": "easy", "time": 2305},
-    {"type": "normal", "time": 4000},
-    {"type": "hard", "time": 5000},
-    {"type": "intense", "time": 6000}
+    {"time" : 2305},
+    {"time" : 2305},
+    {"time" : 4000},
+    {"time" : 5000},
+    {"time" : 6000}
   ],
   "name": "timerResults",
   "version": "0.0.1"
