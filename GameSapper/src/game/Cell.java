@@ -5,19 +5,22 @@ package game;
  */
 
 public class Cell {
+    private int number;
+    public final int row, column;
+    public boolean isOpened;
+    public boolean isTagged;
+
     public Cell(final int row, final int column) {
         this.row = row;
         this.column = column;
     }
+
     public Cell(final int number) {
         this.number = number;
         this.row = 0;
         this.column = 0;
     }
-    private int number;
-    public final int row, column;
-    public boolean isOpened;
-    public boolean isTagged;
+
     public int getNumber() { return number; }
     public boolean isBomb() { return number == 9; }
     public boolean isEmptyPoint() { return number == 0; }

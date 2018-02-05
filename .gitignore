@@ -1,36 +1,16 @@
-
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
 
 # Folder config file
 Desktop.ini
-SapperDesktopVersion/.idea/*
-SapperDesktopVersion/out/*
-SapperDesktopVersion/lib/*
-SapperDesktopVersion/idea/*
-SapperDesktopVersion/SapperDesktopVersion.iml
-SapperDesktopVersion/src/META-INF/*
-SapperDesktopVersion/GameSapper/*
-GameSapper/out/*
-GameSapper/.idea/*
-GameSapper/GameSapper.iml
-SapperAndroidApp/.gradle/*
-SapperAndroidApp/.idea/*
-SapperAndroidApp/GameSapper/*
-SapperAndroidApp/gradle/*
-SapperAndroidApp/.gitignore/
-SapperAndroidApp/build.gradle
-SapperAndroidApp/gradle.properties
-SapperAndroidApp/gradlew
-SapperAndroidApp/gradlew.bat
-SapperAndroidApp/local.properties
-SapperAndroidApp/SapperAndroidApp.iml
-SapperAndroidApp/settings.gradle
-
 
 .gitignore
 .gitattributes
+
+# Out files
+out/
+.idea/
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

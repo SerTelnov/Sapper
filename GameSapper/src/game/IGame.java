@@ -6,6 +6,8 @@ package game;
 
 public interface IGame {
     void openCell(final int row, final int column);
+
     void putTagged(final int row, final int column);
+
     void addListener(IGameListener listener);
 }

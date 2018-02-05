@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SapperAndroidVersion</string>
+
+    <string name="score_hint">Flags:</string>
+    <string name="stopwatch_hint">Time:</string>
+    <string name="stopwatch_start_hint">Time: 0:00:00</string>
+</resources>

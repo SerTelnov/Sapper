@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cv_action_field" type="id"/>
+    <item name="cv_top_panel" type="id"/>
+
+    <item name="tp_restart_button" type="id"/>
+    <item name="tp_flag_mode_button" type="id"/>
+
+    <item name="rl_scores" type="id"/>
+    <item name="tp_scores" type="id"/>
+    <item name="tp_timer" type="id"/>
+</resources>

@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface IGameListener {
     void cellsChanged(List<Cell> cells);
+
     void gameOver(boolean isWin);
+
     void scoreChange(final int counter);
+
     void gameStart();
 }
