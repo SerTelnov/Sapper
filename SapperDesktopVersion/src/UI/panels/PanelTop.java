@@ -17,6 +17,7 @@ import java.util.*;
  */
 
 public class PanelTop extends JPanel implements IGameListener, IGamePanelListener {
+
     private boolean isSetFlagMode = false;
     private PanelTopListener topListener;
     private GameInfo gameInfo;
@@ -25,8 +26,12 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
     private JButton flagModeButton;
     private GamePanelListener gamePanelListener;
 
-    public PanelTop(ActionField actionField, PanelTopListener topListener,
-                    GamePanelListener gamePanelListener, GameTimer gameTimer, LeaderBoard leaderBoard) {
+    public PanelTop(ActionField actionField,
+                    PanelTopListener topListener,
+                    GamePanelListener gamePanelListener,
+                    GameTimer gameTimer,
+                    LeaderBoard leaderBoard
+    ) {
         this.setFont(GamePanel.font);
         this.setBackground(Color.GRAY);
         this.topListener = topListener;
@@ -74,10 +79,8 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
 
     @Override
     public void gameOver(boolean isWin) {
-        if (!isWin) {
-            restartButton.setSadIcon();
-        }
         scorePanel.stopTime(isWin);
+        restartButton.setFinalIcon(isWin);
     }
 
     @Override
@@ -86,7 +89,7 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
     }
 
     private void createPanel(ActionField actionField) {
-        restartButton.setSmileIcon();
+        restartButton.restart();
 
         gameInfo = new GameInfo(actionField);
         actionField.addListener(this);
@@ -94,8 +97,10 @@ public class PanelTop extends JPanel implements IGameListener, IGamePanelListene
 
     private void restartGame(ActionField newActionField) {
         flagModeButton.setIcon(ImagesGetter.FLAG_ICON);
+
         scorePanel.recreatePanel(newActionField.getCounterBomb());
         scoreChange(0);
+
         topListener.sayRestartGame(newActionField);
         createPanel(newActionField);
     }

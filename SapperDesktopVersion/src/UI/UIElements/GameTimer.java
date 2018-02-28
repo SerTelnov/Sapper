@@ -5,6 +5,10 @@ package UI.UIElements;
  */
 
 public class GameTimer {
+    private long startTime;
+    private long endTime = -1;
+    private final String ZERO_TIME = "00:00:00";
+
     public GameTimer() {
         startTime = System.currentTimeMillis();
     }
@@ -38,9 +42,5 @@ public class GameTimer {
     public void stopTime() {
         endTime = System.currentTimeMillis();
     }
-
-    private long startTime;
-    private long endTime = -1;
-    private final String ZERO_TIME = "00:00:00";
 }
 

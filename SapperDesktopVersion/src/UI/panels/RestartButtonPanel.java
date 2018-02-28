@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class RestartButtonPanel extends JPanel {
     private JButton restartButton;
     private PanelTop panelTop;
-    private boolean isSad = false;
+
     private Timer boredModeTimer;
     private final int BORED_MODE_TIMER = 150;
 
@@ -27,10 +27,12 @@ public class RestartButtonPanel extends JPanel {
             restartButton.setIcon(ImagesGetter.SMILE_ICON);
             boredModeTimer.stop();
         };
+
         boredModeTimer = new Timer(BORED_MODE_TIMER, boredModeTimerListener);
 
         restartButton = PanelTop.buttonFactory(ImagesGetter.SMILE_ICON);
         add(restartButton, BorderLayout.CENTER);
+
         JLabel emptyLabel = new JLabel(ImagesGetter.SMILE_ICON);
         emptyLabel.setVisible( false );
         add(emptyLabel, BorderLayout.LINE_START);
@@ -39,22 +41,21 @@ public class RestartButtonPanel extends JPanel {
         restartButton.addActionListener(restartButtonListener);
     }
 
-    public void setSmileIcon() {
-        if (isSad) {
-            restartButton.setIcon(ImagesGetter.SMILE_ICON);
-            isSad = false;
+    public void setFinalIcon(boolean isWin) {
+        if (isWin) {
+            restartButton.setIcon(ImagesGetter.HAPPY_ICON);
+        } else {
+            restartButton.setIcon(ImagesGetter.SAD_ICON);
         }
     }
 
-    public void setSadIcon() {
-        if (!isSad) {
-            restartButton.setIcon(ImagesGetter.SAD_ICON);
-            isSad = true;
-        }
+    public void restart() {
+        restartButton.setIcon(ImagesGetter.SMILE_ICON);
     }
 
     private void restartGame() {
         panelTop.restartGame();
+        restart();
     }
 
     public void setBoredIcon() {
