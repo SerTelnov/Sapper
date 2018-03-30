@@ -7,6 +7,7 @@ import UI.UIElements.LevelDifficulty;
 import UI.menu.GameMenu;
 import UI.panels.*;
 import game.ActionField;
+import game.solver.Solver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,7 @@ public class SwingPaint {
     public static final int BOTTOM_PADDING = 20;
     private static PanelTop panelTop;
     private static LevelDifficulty levelDifficulty;
+    public static boolean activeSolver = false;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(SwingPaint::createAndShowGUI);
@@ -41,7 +43,8 @@ public class SwingPaint {
         PanelTopListener topListener = new PanelTopListener();
         GamePanelListener gpl = new GamePanelListener();
         panelTop = new PanelTop(actionField, topListener, gpl, gameTimer, leaderBoard);
-        GamePanel gamePanel = new GamePanel(actionField, topListener, gpl);
+
+        GamePanel gamePanel = new GamePanel(actionField, topListener, gpl, new Solver(actionField));
         f.add(panelTop, BorderLayout.PAGE_START);
         f.add(gamePanel, BorderLayout.CENTER);
     }

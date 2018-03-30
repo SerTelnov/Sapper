@@ -62,6 +62,7 @@ class FlagModeButtonView : ImageView, EventsSenderTopPanelListener {
     override fun scoreChanged(newScore: Int) { }
     override fun gameStart() { }
     override fun clickField() { }
+    override fun makePause() { }
 }
 
 @Suppress("NOTHING_TO_INLINE")

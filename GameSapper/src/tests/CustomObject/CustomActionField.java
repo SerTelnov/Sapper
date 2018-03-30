@@ -18,6 +18,13 @@ public class CustomActionField extends ActionField {
 
         if (type.equals(FieldType.FIRST_IS_BOMB_FIELD)) {
             cells[0][0] = new Cell(9);
+
+            Cell customCell = new Cell(1);
+            for (int i = 0; i != row; i++) {
+                for (int j = 0; j != column; j++) {
+                    cells[i][j] = customCell;
+                }
+            }
             return;
         }
 

@@ -3,7 +3,7 @@ package com.sapper.android.sapperandroidversion.UI.CustomView
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Rect
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -24,7 +24,6 @@ import org.jetbrains.anko.sp
 
 class FieldView : View, EventsSenderActionFieldListener {
 
-    private lateinit var table: Array<Array<Rect>>
     private var cells: Array<Array<Cell>>? = null
     private var gameFinished = false
     private var isWin = false
@@ -35,27 +34,21 @@ class FieldView : View, EventsSenderActionFieldListener {
     private val EMPTY_SPACE_SIZE = dip(resources.getDimension(R.dimen.activeField_square_empty_space_size))
     private val DIGIT_SIZE = sp(resources.getDimension(R.dimen.activeField_digit_size)).toFloat()
 
+    private val DIGIT_X = dip(resources.getDimension(R.dimen.af_digit_start_x)).toFloat()
+    private val DIGIT_Y = dip(resources.getDimension(R.dimen.af_digit_start_y)).toFloat()
+
+    private var startWidth = 0
+    private var startHeight = 0
+
     constructor(ctx: Context) : super(ctx) {
-        init(9, 9)
+        init()
     }
 
     constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs) {
-        init(9, 9)
+        init()
     }
 
-    private fun init(row: Int, column: Int) {
-
-        table = Array<Array<Rect>>(row) {
-            val i = it
-
-            Array<Rect>(column) {
-                Rect(i * CELL_SIZE + EMPTY_SPACE_SIZE,
-                        it * CELL_SIZE + EMPTY_SPACE_SIZE,
-                        (i + 1) * CELL_SIZE,
-                        (it + 1) * CELL_SIZE
-                )}
-        }
-
+    private fun init() {
         for (digit in 0..8) {
             getDigitPaint(digit).textSize = DIGIT_SIZE
         }
@@ -67,23 +60,30 @@ class FieldView : View, EventsSenderActionFieldListener {
 
     private val gestureDetector = GestureDetector(object : GestureDetector.SimpleOnGestureListener() {
 
-        override fun onLongPress(e: MotionEvent) {
-            val row = (e.x / CELL_SIZE).toInt()
-            val column = (e.y / CELL_SIZE).toInt()
+        fun isNotOutOfBound(row: Int, column: Int) =
+                row < cells?.size ?: 9 && column < cells?.get(0)?.size ?: 9
 
-            listeners.forEach {
-                it.longClickCell(row, column)
+        override fun onLongPress(e: MotionEvent) {
+            val row = ((e.x - startWidth) / CELL_SIZE).toInt()
+            val column = ((e.y - startHeight) / CELL_SIZE).toInt()
+
+            if (isNotOutOfBound(row, column)) {
+                listeners.forEach { it.longClickCell(row, column) }
             }
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean {
-            val row = (e.x / CELL_SIZE).toInt()
-            val column = (e.y / CELL_SIZE).toInt()
+            val row = ((e.x - startWidth) / CELL_SIZE).toInt()
+            val column = ((e.y - startHeight) / CELL_SIZE).toInt()
 
-            listeners.forEach {
-                it.clickCell(row, column)
+            if (isNotOutOfBound(row, column)) {
+                listeners.forEach { it.clickCell(row, column) }
             }
             return super.onSingleTapUp(e)
+        }
+
+        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+            return super.onScroll(e1, e2, distanceX, distanceY)
         }
     })
 
@@ -93,20 +93,16 @@ class FieldView : View, EventsSenderActionFieldListener {
     }
 
     override fun startNewGame(cells: Array<Array<Cell>>) {
-        this.cells = null
-
         gameFinished = false
 
-        invalidate()
+        cellsChanged(cells)
     }
 
     override fun gameOver(isWin: Boolean, cells: Array<Array<Cell>>) {
-        this.cells = cells
-
         gameFinished = true
         this.isWin = isWin
 
-        invalidate()
+        cellsChanged(cells)
     }
 
     override fun cellsChanged(cells: Array<Array<Cell>>) {
@@ -115,37 +111,56 @@ class FieldView : View, EventsSenderActionFieldListener {
         invalidate()
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        if (startHeight == 0 && startWidth == 0) {
+            val fieldWidth = if (cells != null) cells!!.size else 9 * CELL_SIZE.toInt()
+            val fieldHeath = if (cells != null) cells!![0].size else 9 * CELL_SIZE.toInt()
+
+            startWidth = (measuredWidth - fieldWidth) / 2
+            startHeight = (measuredHeight - fieldHeath) / 4
+        }
+    }
+
+    private fun Canvas.drawRect(i: Int, j: Int, paint: Paint) {
+        drawRect((i * CELL_SIZE + EMPTY_SPACE_SIZE + startWidth).toFloat(),
+                (j * CELL_SIZE + EMPTY_SPACE_SIZE + startHeight).toFloat(),
+                ((i + 1) * CELL_SIZE + startWidth).toFloat(),
+                ((j + 1) * CELL_SIZE + startHeight).toFloat(), paint)
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         setBackgroundColor(Color.GRAY)
 
-//        TODO("fixed cells draw!, finish game mode don't work yet")
+//        TODO("fixed cells draw! finish game mode don't work yet")
 
         if (cells == null) {
-            for (i in 0 until table.size) {
-                for (j in 0 until table[0].size) {
-                    canvas.drawRect(table[i][j], CLOSE_CELL)
+            for (i in 0 until 9) {
+                for (j in 0 until 9) {
+                    canvas.drawRect(i, j, CLOSE_CELL)
                 }
             }
         } else {
-            for (i in 0 until table.size) {
-                for (j in 0 until table[0].size) {
+            for (i in 0 until cells!!.size) {
+                for (j in 0 until cells!![0].size) {
                     val currCell = cells!![i][j]
                     if (!currCell.isOpened) {
-                        canvas.drawRect(table[i][j], CLOSE_CELL)
+                        canvas.drawRect(i, j, CLOSE_CELL)
                     } else if (currCell.isTagged) {
-                        canvas.drawRect(table[i][j], TAGGED_PAINT)
+                        canvas.drawRect(i, j, TAGGED_PAINT)
                     } else if (currCell.isNumber) {
-                        canvas.drawRect(table[i][j], EMPTY_CELL_PAINT)
+                        canvas.drawRect(i, j, EMPTY_CELL_PAINT)
                         canvas.drawText((currCell.number).toString(),
-                                table[i][j].exactCenterX(),
-                                table[i][j].exactCenterY(),
+                                i * CELL_SIZE + startWidth + DIGIT_X,
+                                j * CELL_SIZE + startHeight + DIGIT_Y,
                                 getDigitPaint(currCell.number))
                     } else if (currCell.isEmptyPoint) {
-                        canvas.drawRect(table[i][j], EMPTY_CELL_PAINT)
+                        canvas.drawRect(i, j, EMPTY_CELL_PAINT)
                     } else if (currCell.isBomb) {
-                        canvas.drawRect(table[i][j], BOMB_PAINT)
+                        canvas.drawRect(i, j, BOMB_PAINT)
                     }
                 }
             }
@@ -155,5 +170,4 @@ class FieldView : View, EventsSenderActionFieldListener {
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ViewManager.fieldView(theme: Int = 0) = fieldView({}, theme)
-inline fun ViewManager.fieldView(init: FieldView.() -> Unit, theme: Int = 0) =
-        ankoView(::FieldView, theme, init)
+inline fun ViewManager.fieldView(init: FieldView.() -> Unit, theme: Int = 0) = ankoView(::FieldView, theme, init)

@@ -1,8 +1,10 @@
 package UI.panels;
 
+import UI.SwingPaint;
 import game.ActionField;
 import game.Cell;
 import game.IGameListener;
+import game.solver.Solver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,14 +23,15 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     private boolean gameFinished;
     private boolean isSetFlagMode = false;
     private GamePanelListener gamePanelListener;
+    private Solver solver;
     public static final Font font = new Font("Calibri", Font.BOLD, 20);
 
-    public GamePanel(ActionField newActionField, PanelTopListener topListener, GamePanelListener gpl) {
+    public GamePanel(ActionField newActionField, PanelTopListener topListener, GamePanelListener gpl, Solver solver) {
         this.gamePanelListener = gpl;
+        this.solver = solver;
         topListener.addListener(this);
         createGame(newActionField);
         setBackground(Color.GRAY);
-
         setBorder(BorderFactory.createLineBorder(Color.black));
 
         addMouseListener(new MouseAdapter() {
@@ -60,7 +63,11 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setFont( font );
-        fieldPainter = new FieldPainter(actionField, isWin, gameFinished);
+        if (SwingPaint.activeSolver) {
+            fieldPainter = new FieldPainter(actionField, isWin, gameFinished, solver.getField());
+        } else {
+            fieldPainter = new FieldPainter(actionField, isWin, gameFinished);
+        }
         if (gameFinished) {
             fieldPainter.drawFinishGame(g);
         } else {
@@ -89,6 +96,8 @@ public class GamePanel extends JPanel implements IGameListener, IPanelTopListene
     @Override
     public void restartGame(ActionField newActionField) {
         createGame(newActionField);
+
+        solver.recreate(newActionField);
         repaint();
     }
 

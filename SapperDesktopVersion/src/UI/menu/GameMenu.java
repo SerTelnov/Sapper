@@ -52,6 +52,10 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
         difficultyLevel.add(intense);
         gameSetting.add(difficultyLevel);
         gameSetting.add(new ScoresMenu(this.leaderBoard));
+
+        solverButton = menuItemFactory("Solver");
+        gameSetting.add(solverButton);
+
         gameSetting.addSeparator();
 
         exitButton = menuItemFactory("Exit");
@@ -70,7 +74,7 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
 
     private JMenuBar menuBar;
     private JMenu gameSetting, difficultyLevel;
-    private JMenuItem startNewGame, exitButton,
+    private JMenuItem startNewGame, exitButton, solverButton,
         beginner, easy, normal, hard, intense;
     private LeaderBoard leaderBoard;
 
@@ -90,6 +94,8 @@ public class GameMenu implements MenuListener, ActionListener, KeyListener {
             SwingPaint.recreatePanels(LevelDifficulty.INTENSE);
         } else if (source.equals(startNewGame)) {
             SwingPaint.recreatePanels(LevelDifficulty.NO_LEVEL);
+        } else if (source.equals(solverButton)) {
+            SwingPaint.activeSolver = !SwingPaint.activeSolver;
         } else if (source.equals(exitButton)) {
             System.exit(0);
         }

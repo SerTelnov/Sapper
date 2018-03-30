@@ -10,4 +10,5 @@ interface EventsSenderTopPanelListener {
     fun gameOver(isWin: Boolean)
     fun scoreChanged(newScore: Int)
     fun startNewGame(countOfBomb: Int)
+    fun makePause()
 }

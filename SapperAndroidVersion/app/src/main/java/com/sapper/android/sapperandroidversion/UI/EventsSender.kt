@@ -21,12 +21,13 @@ class EventsSender : ActionFieldListener, IGameListener,
     private lateinit var currGame: ActionField
     private var onFlagMode = false
     private var isGameOver = false
+    private var isPause = false
 
     private val topPanelListeners = ArrayList<EventsSenderTopPanelListener>()
     private val actionFieldListeners = ArrayList<EventsSenderActionFieldListener>()
 
     public constructor() {
-        init(9, 9, 15)
+        init(9, 9, 10)
     }
 
     public constructor(afRowCounter: Int, afColumnCounter: Int, afCounterOfBomb: Int) {
@@ -54,9 +55,14 @@ class EventsSender : ActionFieldListener, IGameListener,
         actionFieldListeners.add(listener)
     }
 
+    public fun sayMakePause() {
+        isPause = !isPause
+        topPanelListeners.forEach { it.makePause() }
+    }
+
 ////////    ActionField events:
     override fun clickCell(row: Int, column: Int) {
-        if (isGameOver)
+        if (isGameOver || isPause)
             return
         else if (onFlagMode) {
             currGame.putTagged(row, column)
@@ -70,7 +76,9 @@ class EventsSender : ActionFieldListener, IGameListener,
     }
 
     override fun longClickCell(row: Int, column: Int) {
-        currGame.putTagged(row, column)
+        if (!isGameOver && !isPause) {
+            currGame.putTagged(row, column)
+        }
     }
 
 ////////    Game events:
@@ -108,6 +116,7 @@ class EventsSender : ActionFieldListener, IGameListener,
         currGame.addListener(this)
 
         isGameOver = false
+        isPause = false
 
         topPanelListeners.forEach { it.startNewGame(currGame.counterBomb) }
         actionFieldListeners.forEach { it.startNewGame(currGame.field) }

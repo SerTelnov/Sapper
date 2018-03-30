@@ -3,6 +3,7 @@ package UI.panels;
 import game.Cell;
 import game.Field;
 import UI.UIElements.ImagesGetter;
+import game.solver.Solver;
 
 import java.awt.*;
 
@@ -20,6 +21,7 @@ public class FieldPainter {
     private boolean gameFinished;
     public static final int CELL_WIDTH = 35;
     public static final int CELL_HEIGHT = 35;
+    private Solver.SolverCell[][] solverCells;
 
     public FieldPainter(final Field field, final boolean isWin, final boolean gameFinished) {
         this.field = field;
@@ -27,10 +29,20 @@ public class FieldPainter {
         this.gameFinished = gameFinished;
     }
 
+    public FieldPainter(final Field field, final boolean isWin, final boolean gameFinished, Solver.SolverCell[][] solverCells) {
+        this(field, isWin, gameFinished);
+
+        this.solverCells = solverCells;
+    }
+
     public void drawField(Graphics g) {
         for (int i = 0; i != field.getRow(); i++) {
             for (int j = 0; j != field.getColumn(); j++) {
-                drawCell(g, getX(i), getY(j), field.getCell(i, j));
+                if (solverCells != null && solverCells[i][j] != null && solverCells[i][j].getCountBombAround() == -1) {
+                    drawString(g, solverCells[i][j].isBomb() ? "!" : "?", getX(i), getY(j));
+                } else {
+                    drawCell(g, getX(i), getY(j), field.getCell(i, j));
+                }
             }
         }
     }
@@ -80,9 +92,13 @@ public class FieldPainter {
                 color = new Color(14315734);
                 break;
             default: color = Color.BLACK;
-
         }
         g.setColor(color);
+    }
+
+    private void drawString(Graphics g, final String s, final int x, final int y) {
+        g.drawString(s, x + 2 * CELL_WIDTH / 7 + 2, y + CELL_HEIGHT / 2 + 5);
+        drawRect(g, x, y);
     }
 
     private void drawNumber(Graphics g, final Integer number, final int x, final int y) {
@@ -90,8 +106,7 @@ public class FieldPainter {
         fillRect(g, x, y);
 
         chooseColor(g, number);
-        g.drawString(number.toString(), x + 2 * CELL_WIDTH / 7 + 2, y + CELL_HEIGHT / 2 + 5);
-        drawRect(g, x, y);
+        drawString(g, number.toString(), x, y);
     }
 
     private void drawRect(Graphics g, final int x, final int y) {

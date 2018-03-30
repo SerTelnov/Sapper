@@ -1,12 +1,17 @@
 package com.sapper.android.sapperandroidversion
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import com.sapper.android.sapperandroidversion.UI.CustomView.*
 import com.sapper.android.sapperandroidversion.UI.EventsSender
 import org.jetbrains.anko.*
+
+private val sender = EventsSender()
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,13 +19,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         MainActivityUI().setContentView(this)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.game_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.menu_item_pause) {
+            sender.sayMakePause()
+        } else if (id == R.id.menu_to_start_activity) {
+            startActivity(Intent(this, StartActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
 
 class MainActivityUI : AnkoComponent<MainActivity> {
 
     override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
-        val sender = EventsSender()
-
         relativeLayout {
             relativeLayout {
                 id = R.id.cv_top_panel

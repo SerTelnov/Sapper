@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="topPanel_height_size">30dp</dimen>
+    <dimen name="topPanel_text_size">3sp</dimen>
 
-    <dimen name="activeField_cell_size">15dp</dimen>
+    <dimen name="activeField_cell_size">17dp</dimen>
     <dimen name="activeField_square_empty_space_size">2dp</dimen>
-    <dimen name="activeField_digit_size">7sp</dimen>
+    <dimen name="af_digit_start_x">7.5dp</dimen>
+    <dimen name="af_digit_start_y">12dp</dimen>
+    <dimen name="activeField_digit_size">10sp</dimen>
 </resources>

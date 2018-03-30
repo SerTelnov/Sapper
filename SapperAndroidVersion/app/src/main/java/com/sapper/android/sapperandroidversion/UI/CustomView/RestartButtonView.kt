@@ -71,6 +71,7 @@ class RestartButtonView : ImageView, EventsSenderTopPanelListener {
 
     override fun scoreChanged(newScore: Int) { }
     override fun gameStart() { }
+    override fun makePause() { }
 }
 
 @Suppress("NOTHING_TO_INLINE")

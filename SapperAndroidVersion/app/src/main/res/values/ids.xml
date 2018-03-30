@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="game_settings" type="id"/>
+    <item name="menu_item_pause" type="id"/>
+    <item name="menu_item_scores" type="id"/>
+
     <item name="cv_action_field" type="id"/>
     <item name="cv_top_panel" type="id"/>
 
