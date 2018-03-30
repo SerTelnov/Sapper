@@ -25,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onPause() {
+        super.onPause()
+        sender.sayMakePause();
+    }
+
+//    override fun onResume() {
+//        super.onResume()
+//        sender.restartGame()
+//    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
