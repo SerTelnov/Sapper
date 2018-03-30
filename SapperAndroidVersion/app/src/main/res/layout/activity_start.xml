@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_start_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sapper.android.sapperandroidversion.StartActivity">
+
+    <TextView
+        android:id="@+id/tv_start_activity_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="27sp"
+        android:hint="Hi, WellCome to Sapper-Game"/>
+
+    <Button
+        android:id="@+id/bt_start_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_below="@id/tv_start_activity_hint"
+        android:text="@string/bt_start_game_hint"/>
+
+    <Button
+        android:id="@+id/bt_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/bt_stats_hint"
+        android:gravity="center"
+        android:layout_below="@id/bt_start_game"/>
+
+</RelativeLayout>
