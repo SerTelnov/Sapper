@@ -59,6 +59,10 @@ class UIUnitTest {
     }
 
     class SenderTPListenerTest : EventsSenderTopPanelListener {
+        override fun makePause() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
         public var wasGameStartEvent = false
         public var wasClickFieldEvent = false
         public var wasGameOverEvent = false
